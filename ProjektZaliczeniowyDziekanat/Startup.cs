@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjektZaliczeniowyDziekanat.DAL.Contexts;
+using Microsoft.OpenApi.Models;
+using ProjektZaliczeniowyDziekanat.Configuration;
 
 namespace ProjektZaliczeniowyDziekanat
 {
@@ -25,12 +27,19 @@ namespace ProjektZaliczeniowyDziekanat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "AppMVC API", Version = "v1" });
+            });
+
             services.AddControllersWithViews();
 
-            services.AddDbContext<DziekanatContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<DziekanatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,10 +57,13 @@ namespace ProjektZaliczeniowyDziekanat
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+
+            SwaggerOptions swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute; });
+            app.UseSwaggerUI(option => { option.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description); });
 
             app.UseEndpoints(endpoints =>
             {
