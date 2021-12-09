@@ -6,9 +6,17 @@
 
   <ItemGroup>
     <Compile Remove="DAL\Models\DAL\**" />
+    <Compile Remove="Views\Nowy folder1\**" />
     <Content Remove="DAL\Models\DAL\**" />
+    <Content Remove="Views\Nowy folder1\**" />
     <EmbeddedResource Remove="DAL\Models\DAL\**" />
+    <EmbeddedResource Remove="Views\Nowy folder1\**" />
     <None Remove="DAL\Models\DAL\**" />
+    <None Remove="Views\Nowy folder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Class.cs" />
   </ItemGroup>
 
   <ItemGroup>

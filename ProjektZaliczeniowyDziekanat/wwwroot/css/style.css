@@ -1,13 +1,6 @@
-﻿#bodyContainer {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:700px;
+﻿body {
+    background-image: url(../jpg/three-gradutes-friends-in-graduation-gowns-walking-in-campus.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
+    padding-top: 150px;
 }
-
-body {
-    height:100%;
-    width:100%;
-}
-
-#loginContainer {width: 400px;}

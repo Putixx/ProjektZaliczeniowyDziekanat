@@ -9,10 +9,11 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         [ForeignKey("Student")]
         [HiddenInput]
         public int StudentID { get; set; }
-        [HiddenInput]
         public Student Student { get; set; }
-        [Required(ErrorMessage="Proszę podać login")]
+        [BindProperty]
+        [Required(ErrorMessage = "Proszę podać login")]
         public string Login { get; set; }
+        [BindProperty]
         [DataType(DataType.Password)]
         [Required(ErrorMessage ="Proszę podać hasło")]
         public string Haslo { get; set; }
