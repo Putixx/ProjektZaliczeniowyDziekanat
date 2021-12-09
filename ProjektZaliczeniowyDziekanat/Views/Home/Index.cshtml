@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ProjektZaliczeniowyDziekanat.DAL.Models.StudentLogowanie;
+@{
+    ViewData["Title"] = "Logowanie - Wirtualny Dziekanat";    
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*<div class="card border-primary mb-3" style="width:300px;">
+    <div class="card-header">Header</div>
+    <div class="card-body text-primary">
+        <form class="mt-5">
+            <div class="mb-3">
+                <label asp-for="Login" class="form-label">Login</label>
+                <input type="email" class="form-control" asp-for="Login" required>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Haslo" class="form-label">Password</label>
+                <input asp-for="Haslo" type="password" class="form-control" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-primary">Zaloguj</button>
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div class="card text-center" id="loginContainer">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item" id="student">
+                <a class="nav-link" aria-current="false" href="#" >Student</a>
+            </li>
+            <li class="nav-item" id="wykladowca">
+                <a  class="nav-link" href="#" >Wykładowca</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body text-primary">
+        <form class="m-2" method="get" asp-controller="Home" asp-action="AccountLogin">
+            <div class="mb-3">
+                <label asp-for="Login" class="form-label">Login</label>
+                <input type="email" class="form-control" asp-for="Login" required>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Haslo" class="form-label">Password</label>
+                <input asp-for="Haslo" type="password" class="form-control" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-primary">Zaloguj</button>
+            </div>
+        </form>
+    </div>
 </div>
