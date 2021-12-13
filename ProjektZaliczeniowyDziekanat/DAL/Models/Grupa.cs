@@ -9,6 +9,5 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string GrupaNr { get; set; }
 
-        Grupa() { }
     }
 }

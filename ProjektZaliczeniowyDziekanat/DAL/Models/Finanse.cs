@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,8 +13,6 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public DateTime DataPlatnosci { get; set; }
         [ForeignKey("Student")]
         public int StudentID { get; set; }
-        public Student Student { get; set; }
-
-        Finanse() { }
+        public virtual Student Student { get; set; }
     }
 }

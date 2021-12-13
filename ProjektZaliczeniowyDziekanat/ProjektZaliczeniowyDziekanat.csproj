@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+   <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\Class.cs" />
+    <Compile Remove="DAL\Models\Ocena.cs" />
   </ItemGroup>
 
   <ItemGroup>

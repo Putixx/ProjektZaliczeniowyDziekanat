@@ -12,6 +12,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public DateTime TerminZajec { get; set; }
         [ForeignKey("Wykladowca")]
         public int WykladowcaID { get; set; }
+        public virtual Wykladowca Wykladowca { get; set; }
 
         Zajecia() { }
     }

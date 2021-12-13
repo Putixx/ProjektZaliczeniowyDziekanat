@@ -9,7 +9,6 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public int WykladowcaID { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
-        public DateTime DataZatrudnienia { get; set; }
         public string StopienNaukowy { get; set; }
         public string PESEL { get; set; }
 
