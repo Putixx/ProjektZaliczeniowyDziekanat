@@ -10,17 +10,19 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
         {
             context.Database.EnsureCreated();
 
-            InitializeGrupy(context);
-            InitializeStudenci(context);
-            InitializeStudenciLogowanie(context);
-            InitializeFinanse(context);
-            InitializeWykladowcy(context);
-            InitializeWykladowcyLogowanie(context);
-            InitializeZajecia(context);
-            InitializeStudenciOceny(context);
+            InitializeGrupy(ref context);
+            InitializeStudenci(ref context);
+            InitializeStudenciLogowanie(ref context);
+            InitializeFinanse(ref context);
+            InitializeWykladowcy(ref context);
+            InitializeWykladowcyLogowanie(ref context);
+            InitializeZajecia(ref context);
+            InitializeStudenciOceny(ref context);
+
+            context.SaveChanges();
         }
 
-        public static void InitializeGrupy(DziekanatContext context)
+        public static void InitializeGrupy(ref DziekanatContext context)
         {
             if (context.Grupy.Any())
                 return;
@@ -38,7 +40,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeStudenci(DziekanatContext context)
+        public static void InitializeStudenci(ref DziekanatContext context)
         {
             if (context.Studenci.Any())
                 return;
@@ -58,7 +60,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeStudenciLogowanie(DziekanatContext context)
+        public static void InitializeStudenciLogowanie(ref DziekanatContext context)
         {
             if (context.StudenciLogowanie.Any())
                 return;
@@ -78,7 +80,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeFinanse(DziekanatContext context)
+        public static void InitializeFinanse(ref DziekanatContext context)
         {
             if (context.Finanse.Any())
                 return;
@@ -98,7 +100,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeWykladowcy(DziekanatContext context)
+        public static void InitializeWykladowcy(ref DziekanatContext context)
         {
             if (context.Wykladowcy.Any())
                 return;
@@ -122,7 +124,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeWykladowcyLogowanie(DziekanatContext context)
+        public static void InitializeWykladowcyLogowanie(ref DziekanatContext context)
         {
             if (context.WykladowcyLogowanie.Any())
                 return;
@@ -146,7 +148,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeZajecia(DziekanatContext context)
+        public static void InitializeZajecia(ref DziekanatContext context)
         {
             if (context.Zajecia.Any())
                 return;
@@ -187,7 +189,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeStudenciOceny(DziekanatContext context)
+        public static void InitializeStudenciOceny(ref DziekanatContext context)
         {
             if (context.StudentOceny.Any())
                 return;

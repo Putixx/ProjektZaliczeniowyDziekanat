@@ -32,7 +32,6 @@ namespace ProjektZaliczeniowyDziekanat
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "AppMVC API", Version = "v1" });
             });
 
-            services.AddControllersWithViews();
 
             services.AddDbContext<DziekanatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -40,6 +39,7 @@ namespace ProjektZaliczeniowyDziekanat
 
 
 
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
