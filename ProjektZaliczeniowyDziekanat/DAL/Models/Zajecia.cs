@@ -13,7 +13,9 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         [ForeignKey("Wykladowca")]
         public int WykladowcaID { get; set; }
         public virtual Wykladowca Wykladowca { get; set; }
+        [ForeignKey("Grupa")]
+        public string GrupaNr { get; set; }
+        public virtual Grupa Grupa { get; set; }
 
-        Zajecia() { }
     }
 }

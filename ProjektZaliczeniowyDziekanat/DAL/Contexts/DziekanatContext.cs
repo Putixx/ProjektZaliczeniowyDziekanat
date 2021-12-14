@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 
 namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
@@ -10,15 +6,11 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
     public class DziekanatContext : DbContext 
     {
 
-        public DziekanatContext(DbContextOptions<DziekanatContext> options) : base(options)
-        {
-
-        }
+        public DziekanatContext(DbContextOptions<DziekanatContext> options) : base(options) {    }
 
         public DbSet<StudentLogowanie> StudenciLogowanie { get; set; } 
         public DbSet<Finanse> Finanse { get; set; }
         public DbSet<Grupa> Grupy { get; set; }
-        public DbSet<GrupaZajecia> GrupaZajecia { get; set; }
         public DbSet<Student> Studenci { get; set; }
         public DbSet<StudentOceny> StudentOceny { get; set; }
         public DbSet<Wykladowca> Wykladowcy { get; set; }

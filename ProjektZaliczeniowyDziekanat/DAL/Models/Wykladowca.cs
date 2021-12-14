@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjektZaliczeniowyDziekanat.DAL.Models
 {
@@ -11,7 +10,5 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public string Nazwisko { get; set; }
         public string StopienNaukowy { get; set; }
         public string PESEL { get; set; }
-
-        Wykladowca() { }
     }
 }
