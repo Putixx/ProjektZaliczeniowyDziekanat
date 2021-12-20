@@ -17,13 +17,47 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public IActionResult Login()
+
+        public IActionResult UserRole()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult LoginStudenta()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult LoginWykladowcy()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Verify(StudentLogowanie konto)
+        public IActionResult VerifyWykladowca(WykladowcaLogowanie konto)
+        {
+
+            string login = konto.Login;
+            string haslo = konto.Haslo;
+
+            var userQuery = from WykladowcaLogowanie in _context.WykladowcyLogowanie
+                            where WykladowcaLogowanie.Login == login && WykladowcaLogowanie.Haslo == haslo
+                            select WykladowcaLogowanie.Login;
+
+            if (userQuery == null)
+            {
+                return null;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult VerifyStudent(StudentLogowanie konto)
         {
             
             string login = konto.Login;
@@ -33,7 +67,14 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                             where StudentLogowanie.Login == login && StudentLogowanie.Haslo == haslo
                             select StudentLogowanie.Login;
 
-            return RedirectToAction("Index", "Home");
+            if (userQuery == null)
+            {
+                return null;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
     }
