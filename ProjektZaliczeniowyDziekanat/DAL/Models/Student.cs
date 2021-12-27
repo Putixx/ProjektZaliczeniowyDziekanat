@@ -15,7 +15,9 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public string PESEL { get; set; }
         [ForeignKey("Grupa")]
         public string GrupaNr { get; set; }
-        public virtual Grupa Grupa { get; set; }
 
+
+
+        public virtual Grupa Grupa { get; set; }
     }
 }

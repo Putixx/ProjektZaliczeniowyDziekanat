@@ -13,7 +13,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             InitializeGrupy(ref context);
             InitializeStudenci(ref context);
             InitializeStudenciLogowanie(ref context);
-            InitializeFinanse(ref context);
+            InitializePlatnosci(ref context);
             InitializeWykladowcy(ref context);
             InitializeWykladowcyLogowanie(ref context);
             InitializeZajecia(ref context);
@@ -47,11 +47,11 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
             Student[] studenci = new Student[]
             {
-                new Student{ StudentID = 1, NumerIndeksu = "1001", Imie = "Adam",    Nazwisko = "Nowak", DataUrodzenia = DateTime.Parse("10.12.1999"), PESEL = "12345678910", GrupaNr = "Gr1IS" },
-                new Student{ StudentID = 2, NumerIndeksu = "1002", Imie = "Andrzej", Nazwisko = "Duda",  DataUrodzenia = DateTime.Parse("15.10.1999"), PESEL = "12345678911", GrupaNr = "Gr3IS" },
-                new Student{ StudentID = 3, NumerIndeksu = "1003", Imie = "Anna",    Nazwisko = "Rożek", DataUrodzenia = DateTime.Parse("19.02.1999"), PESEL = "12345678912", GrupaNr = "Gr2IS" },
-                new Student{ StudentID = 4, NumerIndeksu = "1007", Imie = "Justyna", Nazwisko = "Dzik",  DataUrodzenia = DateTime.Parse("25.07.2000"), PESEL = "12345678913", GrupaNr = "Gr2IS" },
-                new Student{ StudentID = 5, NumerIndeksu = "1010", Imie = "Michał",  Nazwisko = "Lis",   DataUrodzenia = DateTime.Parse("10.05.1997"), PESEL = "12345678914", GrupaNr = "Gr1IS" }
+                new Student{ NumerIndeksu = "1001", Imie = "Adam",    Nazwisko = "Nowak", DataUrodzenia = DateTime.Parse("10.12.1999"), PESEL = "12345678910", GrupaNr = "Gr1IS" },
+                new Student{ NumerIndeksu = "1002", Imie = "Andrzej", Nazwisko = "Duda",  DataUrodzenia = DateTime.Parse("15.10.1999"), PESEL = "12345678911", GrupaNr = "Gr3IS" },
+                new Student{ NumerIndeksu = "1003", Imie = "Anna",    Nazwisko = "Rożek", DataUrodzenia = DateTime.Parse("19.02.1999"), PESEL = "12345678912", GrupaNr = "Gr2IS" },
+                new Student{ NumerIndeksu = "1007", Imie = "Justyna", Nazwisko = "Dzik",  DataUrodzenia = DateTime.Parse("25.07.2000"), PESEL = "12345678913", GrupaNr = "Gr2IS" },
+                new Student{ NumerIndeksu = "1010", Imie = "Michał",  Nazwisko = "Lis",   DataUrodzenia = DateTime.Parse("10.05.1997"), PESEL = "12345678914", GrupaNr = "Gr1IS" }
             };
 
             foreach (Student s in studenci)
@@ -80,22 +80,22 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
-        public static void InitializeFinanse(ref DziekanatContext context)
+        public static void InitializePlatnosci(ref DziekanatContext context)
         {
-            if (context.Finanse.Any())
+            if (context.Platnosci.Any())
                 return;
 
-            Finanse[] finanse = new Finanse[]
+            Platnosc[] platnosci = new Platnosc[]
             {
-                new Finanse{ PlatnoscID = 1, StudentID = 3, Kwota = 3600, DataPlatnosci = DateTime.Parse("05.10.2020") },
-                new Finanse{ PlatnoscID = 2, StudentID = 1, Kwota = 3600, DataPlatnosci = DateTime.Parse("08.10.2020") },
-                new Finanse{ PlatnoscID = 3, StudentID = 5, Kwota = 3600, DataPlatnosci = DateTime.Parse("10.10.2020") },
-                new Finanse{ PlatnoscID = 4, StudentID = 4, Kwota = 3600, DataPlatnosci = DateTime.Parse("10.10.2020") },
-                new Finanse{ PlatnoscID = 5, StudentID = 2, Kwota = 3600, DataPlatnosci = DateTime.Parse("12.10.2020") }
+                new Platnosc{ StudentID = 3, Kwota = 3600, DataPlatnosci = DateTime.Parse("05.10.2020") },
+                new Platnosc{ StudentID = 1, Kwota = 3600, DataPlatnosci = DateTime.Parse("08.10.2020") },
+                new Platnosc{ StudentID = 5, Kwota = 3600, DataPlatnosci = DateTime.Parse("10.10.2020") },
+                new Platnosc{ StudentID = 4, Kwota = 3600, DataPlatnosci = DateTime.Parse("10.10.2020") },
+                new Platnosc{ StudentID = 2, Kwota = 3600, DataPlatnosci = DateTime.Parse("12.10.2020") }
             };
 
-            foreach (Finanse f in finanse)
-                context.Finanse.Add(f);
+            foreach (Platnosc p in platnosci)
+                context.Platnosci.Add(p);
 
             context.SaveChanges();
         }
@@ -108,14 +108,14 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
             Wykladowca[] wykladowcy = new Wykladowca[]
             {
-                new Wykladowca{ WykladowcaID = 1, Imie = "Mateusz",   Nazwisko = "Adamski",      StopienNaukowy = "Profesor", PESEL = "12345678915" },
-                new Wykladowca{ WykladowcaID = 2, Imie = "Arkadiusz", Nazwisko = "Kędra",        StopienNaukowy = "Doktor",   PESEL = "12345678916" },
-                new Wykladowca{ WykladowcaID = 3, Imie = "Wojciech",  Nazwisko = "Nowak",        StopienNaukowy = "Doktor",   PESEL = "12345678917" },
-                new Wykladowca{ WykladowcaID = 4, Imie = "Grzegorz",  Nazwisko = "Olkowicz",     StopienNaukowy = "Magister", PESEL = "12345678918" },
-                new Wykladowca{ WykladowcaID = 5, Imie = "Janusz",    Nazwisko = "Kłos",         StopienNaukowy = "Magister", PESEL = "12345678919" },
-                new Wykladowca{ WykladowcaID = 6, Imie = "Jeży",      Nazwisko = "Królik",       StopienNaukowy = "Profesor", PESEL = "12345678920" },
-                new Wykladowca{ WykladowcaID = 7, Imie = "Jarosław",  Nazwisko = "Parafiańczyk", StopienNaukowy = "Profesor", PESEL = "12345678921" },
-                new Wykladowca{ WykladowcaID = 8, Imie = "Emil",      Nazwisko = "Pawlicz",      StopienNaukowy = "Profesor", PESEL = "12345678922" }
+                new Wykladowca{ Imie = "Mateusz",   Nazwisko = "Adamski",      StopienNaukowy = "Profesor", PESEL = "12345678915" },
+                new Wykladowca{ Imie = "Arkadiusz", Nazwisko = "Kędra",        StopienNaukowy = "Doktor",   PESEL = "12345678916" },
+                new Wykladowca{ Imie = "Wojciech",  Nazwisko = "Nowak",        StopienNaukowy = "Doktor",   PESEL = "12345678917" },
+                new Wykladowca{ Imie = "Grzegorz",  Nazwisko = "Olkowicz",     StopienNaukowy = "Magister", PESEL = "12345678918" },
+                new Wykladowca{ Imie = "Janusz",    Nazwisko = "Kłos",         StopienNaukowy = "Magister", PESEL = "12345678919" },
+                new Wykladowca{ Imie = "Jeży",      Nazwisko = "Królik",       StopienNaukowy = "Profesor", PESEL = "12345678920" },
+                new Wykladowca{ Imie = "Jarosław",  Nazwisko = "Parafiańczyk", StopienNaukowy = "Profesor", PESEL = "12345678921" },
+                new Wykladowca{ Imie = "Emil",      Nazwisko = "Pawlicz",      StopienNaukowy = "Profesor", PESEL = "12345678922" }
             };
 
             foreach (Wykladowca w in wykladowcy)
@@ -150,48 +150,48 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
         public static void InitializeZajecia(ref DziekanatContext context)
         {
-            if (context.Zajecia.Any())
+            if (context.PlanZajec.Any())
                 return;
 
             Zajecia[] zajecia = new Zajecia[]
             {
-                new Zajecia{ ZajeciaID = 1,  NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 2,  NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 3,  NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 4,  NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 5,  NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("13.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 6,  NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("13.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 7,  NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ ZajeciaID = 8,  NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 15:00:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("13.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("13.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 15:00:00"), GrupaNr = "Gr1IS" },
 
-                new Zajecia{ ZajeciaID = 9,  NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 10, NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 11, NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 12, NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 13, NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 14, NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 15, NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("12.01.2022 15:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ ZajeciaID = 16, NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("12.01.2022 15:00:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
 
-                new Zajecia{ ZajeciaID = 17, NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 18, NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 19, NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 20, NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 21, NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("14.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 22, NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("14.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 23, NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("14.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ ZajeciaID = 24, NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("14.01.2022 15:00:00"), GrupaNr = "Gr3IS" }
+                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("14.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("14.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("14.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
+                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("14.01.2022 15:00:00"), GrupaNr = "Gr3IS" }
             };
 
             foreach (Zajecia z in zajecia)
-                context.Zajecia.Add(z);
+                context.PlanZajec.Add(z);
 
             context.SaveChanges();
         }
 
         public static void InitializeStudenciOceny(ref DziekanatContext context)
         {
-            if (context.StudentOceny.Any())
+            if (context.StudenciOceny.Any())
                 return;
 
             StudentOceny[] studenciOceny = new StudentOceny[]
@@ -202,7 +202,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             };
 
             foreach (StudentOceny so in studenciOceny)
-                context.StudentOceny.Add(so);
+                context.StudenciOceny.Add(so);
 
             context.SaveChanges();
         }
