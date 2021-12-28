@@ -1,0 +1,31 @@
+﻿@model List<ProjektZaliczeniowyDziekanat.DAL.Models.Zajecia>;
+@{
+    ViewData["Title"] = "Plan zajęć - Wirtualny Dziekanat";
+}
+
+
+<div class="text-center">
+    <h1>Plan Zajęć</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>  ID  </th>
+                <th>  Termin Zajęć  </th>
+                <th>  Nazwa Zajęć </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @item.ZajeciaID </td>
+                <td> @item.TerminZajec </td>
+                <td> @item.NazwaZajec </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

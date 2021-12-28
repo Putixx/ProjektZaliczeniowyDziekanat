@@ -7,20 +7,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
+using ProjektZaliczeniowyDziekanat.Interfaces;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
     public class StudentController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IObslugaStudent obslugaDb;
 
-        public StudentController(ILogger<HomeController> logger)
+        public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaDb)
         {
             _logger = logger;
-        }
-        public IActionResult Privacy()
-        {
-            return View();
+            this.obslugaDb = obslugaDb;
         }
 
         [HttpGet]
@@ -28,10 +27,17 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         {                      
             return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult PlanZajec()
+        {
+            return View(obslugaDb.WyswietlZajecia());
         }
     }
 }
