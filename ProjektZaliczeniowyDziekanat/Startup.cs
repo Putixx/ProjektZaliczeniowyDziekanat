@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjektZaliczeniowyDziekanat.DAL.Contexts;
 using Microsoft.OpenApi.Models;
 using ProjektZaliczeniowyDziekanat.Configuration;
+using ProjektZaliczeniowyDziekanat.Interfaces;
+using ProjektZaliczeniowyDziekanat.Services;
 
 namespace ProjektZaliczeniowyDziekanat
 {
@@ -31,6 +28,8 @@ namespace ProjektZaliczeniowyDziekanat
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "AppMVC API", Version = "v1" });
             });
+
+            services.AddScoped<IObslugaStudent, ObslugaStudent>();
 
 
             services.AddDbContext<DziekanatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
