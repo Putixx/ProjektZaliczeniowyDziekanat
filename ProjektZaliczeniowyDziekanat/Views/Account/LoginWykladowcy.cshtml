@@ -2,6 +2,8 @@
 
 @{
     Layout = null;
+
+    
 }
 
 <!DOCTYPE html>
@@ -24,18 +26,20 @@
                             <div class="card-body p-5 text-center">
 
                                 <div class="mb-md-5 mt-md-4 pb-5">
-                                    <form asp-controller="Account" asp-action="VerifyWykladowca" method="post">
+                                    <form asp-controller="Account" asp-action="LoginWykladowcy" method="post">
                                         <h2 class="fw-bold mb-2 text-uppercase">Witaj, wykładowco!</h2>
                                         <p class="text-white-50 mb-5">Wirtualny Dziekanat Uniwersytetu</p>
 
                                         <div class="form-outline form-white mb-4">
+                                            <label class="form-label" asp-for="Login">Login</label>
                                             <input type="text" asp-for="Login" class="form-control form-control-lg" />
-                                            <label class="form-label" asp-for="Login">Nazwa</label>
+                                            <span asp-validation-for="Login"></span>
                                         </div>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input type="password" asp-for="Haslo" class="form-control form-control-lg" />
                                             <label class="form-label" asp-for="Haslo">Hasło</label>
+                                            <input type="password" asp-for="Haslo" class="form-control form-control-lg" />
+                                            <span asp-validation-for="Haslo"></span>
                                         </div>
 
                                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Zaloguj</button>

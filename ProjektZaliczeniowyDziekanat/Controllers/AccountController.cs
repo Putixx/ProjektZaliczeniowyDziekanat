@@ -36,46 +36,52 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         }
 
         [HttpPost]
-        public IActionResult VerifyWykladowca(WykladowcaLogowanie konto)
+        public IActionResult LoginWykladowcy(WykladowcaLogowanie konto)
         {
-
-            string login = konto.Login;
-            string haslo = konto.Haslo;
-
-            var userQuery = from WykladowcaLogowanie in _context.WykladowcyLogowanie
-                            where WykladowcaLogowanie.Login == login && WykladowcaLogowanie.Haslo == haslo
-                            select WykladowcaLogowanie.Login;
-
-            if (userQuery == null)
+            try
             {
-                return null;
+                if (ModelState.IsValid)
+                {
+                    string login = konto.Login;
+                    string haslo = konto.Haslo;
+                    WykladowcaLogowanie data = _context.WykladowcyLogowanie
+                        .First(x => x.Login == login && x.Haslo == haslo);
+                    Wykladowca wykladowca = _context.Wykladowcy.First(x => x.WykladowcaID == data.WykladowcaID);
+
+                    if (wykladowca == null) return BadRequest();
+
+                    return RedirectToAction(/*"Index", "Student", wykladowca*/);
+                }
+                return View();
             }
-            else
+            catch(InvalidOperationException)
             {
-                return RedirectToAction("Index", "Home");
+                return View();
             }
         }
 
         [HttpPost]
-        public IActionResult VerifyStudent(StudentLogowanie konto)
+        public IActionResult LoginStudenta(StudentLogowanie konto)
         {
-            
-            string login = konto.Login;
-            string haslo = konto.Haslo;
-
-            var userQuery = from StudentLogowanie in _context.StudenciLogowanie
-                            where StudentLogowanie.Login == login && StudentLogowanie.Haslo == haslo
-                            select StudentLogowanie.Login;
-
-            if (userQuery == null)
+            try
             {
-                return null;
+                if (ModelState.IsValid)
+                {
+                    string login = konto.Login;
+                    string haslo = konto.Haslo;
+                    StudentLogowanie data = _context.StudenciLogowanie
+                        .First(x => x.Login == login && x.Haslo == haslo);
+                    if (data == null) return BadRequest(); //tymczasowo
+                    Student student = _context.Studenci.First(x => x.StudentID == data.StudentID);
+
+                    return RedirectToAction("Index", "Student", student);
+                }
+                return View();
             }
-            else
+            catch (InvalidOperationException)
             {
-                return RedirectToAction("Index", "Home");
+                return View();              
             }
         }
-
     }
 }
