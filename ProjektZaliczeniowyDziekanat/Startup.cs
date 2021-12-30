@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using ProjektZaliczeniowyDziekanat.Configuration;
 using ProjektZaliczeniowyDziekanat.Interfaces;
 using ProjektZaliczeniowyDziekanat.Services;
+using System;
 
 namespace ProjektZaliczeniowyDziekanat
 {
@@ -35,7 +36,9 @@ namespace ProjektZaliczeniowyDziekanat
             services.AddDbContext<DziekanatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
 
 
             services.AddControllersWithViews();
@@ -58,6 +61,7 @@ namespace ProjektZaliczeniowyDziekanat
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSession();
 
             SwaggerOptions swaggerOptions = new SwaggerOptions();
             Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
