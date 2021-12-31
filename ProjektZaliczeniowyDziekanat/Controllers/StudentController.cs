@@ -2,30 +2,24 @@
 using Microsoft.Extensions.Logging;
 using ProjektZaliczeniowyDziekanat.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
 using Microsoft.AspNetCore.Http;
-using ProjektZaliczeniowyDziekanat.DAL.Contexts;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IObslugaStudent obslugaStudent;
 
         public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaStudent)
         {
-            _logger = logger;
             this.obslugaStudent = obslugaStudent;
         }
 
         [HttpGet]
-        [Route("Home")]
+        [Route("Student/Home")]
         public IActionResult Index()
         {
             Student student = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
