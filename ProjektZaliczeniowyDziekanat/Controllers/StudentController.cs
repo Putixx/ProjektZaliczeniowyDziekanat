@@ -16,23 +16,24 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
     public class StudentController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IObslugaStudent obslugaDb;
-        private readonly DziekanatContext _context;
+        private readonly IObslugaStudent obslugaStudent;
 
-        public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaDb, DziekanatContext context)
+        public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaStudent)
         {
             _logger = logger;
-            this.obslugaDb = obslugaDb;
-            _context = context;
+            this.obslugaStudent = obslugaStudent;
         }
 
         [HttpGet]
         [Route("Home")]
         public IActionResult Index()
         {
-            var id = HttpContext.Session.GetInt32("studentID");
-            Student loggedStudent = _context.Studenci.FirstOrDefault(x => x.StudentID == id);
-            return View(loggedStudent);
+            Student student = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
+
+            if (student == null)
+                return BadRequest();
+            else
+                return View(student);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -44,7 +45,12 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public IActionResult PlanZajec()
         {
-            return View(obslugaDb.WyswietlZajecia());
+            Student ZalStudent = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
+
+            if (ZalStudent == null)
+                return BadRequest();
+            else
+                return View(obslugaStudent.WyswietlZajecia(ZalStudent));
         }
     }
 }

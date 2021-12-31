@@ -17,11 +17,22 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
-        public List<Zajecia> WyswietlZajecia()
+        public List<Zajecia> WyswietlZajecia(Student ZalStudent)
         {
-            IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec select z;
+            IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec where z.GrupaNr == ZalStudent.GrupaNr select z;
 
             return zajecia.ToList();
+        }
+        
+        public Student ZalogowanyStudent(int? StudentID)
+        {
+            if (StudentID != null)
+            {
+                Student student = dziekanatDb.Studenci.First(x => x.StudentID == StudentID);
+                return student;
+            }
+            else
+                return null;
         }
     }
 }

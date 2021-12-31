@@ -5,6 +5,7 @@ namespace ProjektZaliczeniowyDziekanat.Interfaces
 {
     public interface IObslugaStudent
     {
-        List<Zajecia> WyswietlZajecia();
+        List<Zajecia> WyswietlZajecia(Student ZalStudent);
+        Student ZalogowanyStudent(int? StudentID);
     }
 }

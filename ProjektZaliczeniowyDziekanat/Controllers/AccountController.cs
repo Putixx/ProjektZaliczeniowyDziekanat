@@ -1,22 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ProjektZaliczeniowyDziekanat.DAL.Models;
-using ProjektZaliczeniowyDziekanat.DAL.Contexts;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Http;
+using ProjektZaliczeniowyDziekanat.Interfaces;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly DziekanatContext _context;
+        private readonly IObslugaAccount obslugaAccount;
 
-        public AccountController(DziekanatContext context)
+        public AccountController(IObslugaAccount obslugaAccount)
         {
-            _context = context;
+            this.obslugaAccount = obslugaAccount;
         }
 
         public IActionResult UserRole()
@@ -37,54 +32,42 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginWykladowcy(WykladowcaLogowanie konto)
+        public IActionResult LoginWykladowcy(string Login, string Haslo)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (obslugaAccount.WyszukajWykladowceDoZalogowania(Login, Haslo))
                 {
-                    string login = konto.Login;
-                    string haslo = konto.Haslo;
-                    WykladowcaLogowanie data = _context.WykladowcyLogowanie
-                        .First(x => x.Login == login && x.Haslo == haslo);
-                    if (data == null) return BadRequest();
-                    Wykladowca wykladowca = _context.Wykladowcy.First(x => x.WykladowcaID == data.WykladowcaID);
-
-                    HttpContext.Session.SetInt32("wykladowcaID", wykladowca.WykladowcaID);
-
-                    return RedirectToAction(/*"Index", "Student", wykladowca*/);
+                    HttpContext.Session.SetInt32("wykladowcaID", obslugaAccount.PobierzZalogowanegoWykladowce(Login, Haslo).WykladowcaID);
+                    return RedirectToAction("Index", "Wykladowca");
                 }
-                return View();
+                else
+                    return BadRequest();
+
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 return View();
             }
         }
 
         [HttpPost]
-        public IActionResult LoginStudenta(StudentLogowanie konto)
+        public IActionResult LoginStudenta(string Login, string Haslo)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (obslugaAccount.WyszukajStudentaDoZalogowania(Login, Haslo))
                 {
-                    string login = konto.Login;
-                    string haslo = konto.Haslo;
-                    StudentLogowanie data = _context.StudenciLogowanie
-                        .First(x => x.Login == login && x.Haslo == haslo);
-                    if (data == null) return BadRequest(); //tymczasowo
-                    Student student = _context.Studenci.First(x => x.StudentID == data.StudentID);
-
-                    HttpContext.Session.SetInt32("studentID", student.StudentID);
-
+                    HttpContext.Session.SetInt32("studentID", obslugaAccount.PobierzZalogowanegoStudenta(Login, Haslo).StudentID);
                     return RedirectToAction("Index", "Student");
                 }
-                return View();
+                else
+                    return BadRequest();
+
             }
             catch (InvalidOperationException)
             {
-                return View();              
+                return View();
             }
         }
     }

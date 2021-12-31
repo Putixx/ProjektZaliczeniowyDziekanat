@@ -31,7 +31,7 @@ namespace ProjektZaliczeniowyDziekanat
             });
 
             services.AddScoped<IObslugaStudent, ObslugaStudent>();
-
+            services.AddScoped<IObslugaAccount, ObslugaAccount>();
 
             services.AddDbContext<DziekanatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
