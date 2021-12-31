@@ -7,22 +7,33 @@
 <div class="text-center">
     <h1>Plan Zajęć</h1>
 
+    <form asp-action="PlanZajec" method="get">
+        <div class="form-actions">
+            <p>
+                <label for="SearchString"> Szukaj po nazwie: </label><input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Szukaj" class="btn btn-outline-dark btn-lg px-4" /> <hr />
+            </p>
+        </div>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
-                <th>  ID  </th>
-                <th>  Termin Zajęć  </th>
-                <th>  Nazwa Zajęć </th>
+                <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["IndexSortPar"]"> ID </a> </th>
+                <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["NameSortPar"]"> Nazwa Zajęć </a> </th>
+                <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["DateSortPar"]"> Termin Zajęć </a> </th>
+                <th> Grupa </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td> @item.ZajeciaID </td>
-                <td> @item.TerminZajec </td>
-                <td> @item.NazwaZajec </td>
-            </tr>
+                <tr>
+                    <td> @item.ZajeciaID </td>
+                    <td> @item.NazwaZajec </td>
+                    <td> @item.TerminZajec </td>
+                    <td> @item.GrupaNr </td>
+                </tr>
             }
         </tbody>
     </table>

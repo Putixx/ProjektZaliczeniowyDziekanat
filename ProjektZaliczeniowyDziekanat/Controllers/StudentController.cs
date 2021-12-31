@@ -43,14 +43,22 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         }
 
         [HttpGet]
-        public IActionResult PlanZajec()
+        public IActionResult PlanZajec(string sortOrder, string searchString)
         {
             Student ZalStudent = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
 
             if (ZalStudent == null)
                 return BadRequest();
             else
-                return View(obslugaStudent.WyswietlZajecia(ZalStudent));
+            {
+                ViewData["IndexSortPar"] = String.IsNullOrEmpty(sortOrder) ? "index_desc" : "";
+                ViewData["DateSortPar"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+                ViewData["NameSortPar"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewData["CurrentFilter"] = searchString;
+
+
+                return View(obslugaStudent.WyswietlZajecia(ZalStudent, sortOrder, searchString));
+            }
         }
     }
 }
