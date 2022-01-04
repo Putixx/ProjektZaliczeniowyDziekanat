@@ -30,6 +30,7 @@
                                         <h2 class="fw-bold mb-2 text-uppercase">Witaj, wykładowco!</h2>
                                         <p class="text-white-50 mb-5">Wirtualny Dziekanat Uniwersytetu</p>
 
+
                                         <div class="form-outline form-white mb-4">
                                             <label class="form-label" asp-for="Login">Login</label>
                                             <input type="text" asp-for="Login" class="form-control form-control-lg" />
@@ -42,8 +43,11 @@
                                             <span asp-validation-for="Haslo"></span>
                                         </div>
 
-                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Zaloguj</button>
+                                        <button class="btn btn-outline-success btn-lg px-5" type="submit">Zaloguj</button>
+                                        <button class="btn btn-outline-light btn-lg px-5" asp-controller="Account" asp-action="UserRole">Wróć</button>
+
                                     </form>
+                                    <span class="text-danger">@ViewData["BadLogin"]</span>
                                 </div>
                             </div>
                         </div>

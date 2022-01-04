@@ -44,5 +44,19 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             else
                 return View(obslugaWykladowca.WyswietlZajecia(ZalWykladowca));
         }
+
+        [HttpGet]
+        public IActionResult Dane()
+        {
+            Wykladowca ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            return View(ZalWykladowca);
+        }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
     }
 }

@@ -39,6 +39,8 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 if (obslugaAccount.WyszukajWykladowceDoZalogowania(Login, Haslo))
                 {
                     HttpContext.Session.SetInt32("wykladowcaID", obslugaAccount.PobierzZalogowanegoWykladowce(Login, Haslo).WykladowcaID);
+                    ViewData["BadLogin"] = "";
+                    ViewData["ctrl"] = "Student";
                     return RedirectToAction("Index", "Wykladowca");
                 }
                 else
@@ -47,6 +49,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             }
             catch (InvalidOperationException)
             {
+                ViewData["BadLogin"] = "Zły login lub hasło";
                 return View();
             }
         }
@@ -59,6 +62,8 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 if (obslugaAccount.WyszukajStudentaDoZalogowania(Login, Haslo))
                 {
                     HttpContext.Session.SetInt32("studentID", obslugaAccount.PobierzZalogowanegoStudenta(Login, Haslo).StudentID);
+                    ViewData["BadLogin"] = "";
+                    ViewData["ctrl"] = "Wykladowca";
                     return RedirectToAction("Index", "Student");
                 }
                 else
@@ -67,8 +72,15 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             }
             catch (InvalidOperationException)
             {
+                ViewData["BadLogin"] = "Zły login lub hasło";
                 return View();
             }
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("UserRole", "Account");
         }
     }
 }

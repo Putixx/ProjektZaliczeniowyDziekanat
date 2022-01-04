@@ -30,6 +30,13 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return View(student);
         }
 
+        [HttpGet]
+        public IActionResult Dane()
+        {
+            Student student = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
+            return View(student);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -54,5 +61,13 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return View(obslugaStudent.WyswietlZajecia(ZalStudent, sortOrder, searchString));
             }
         }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
     }
 }

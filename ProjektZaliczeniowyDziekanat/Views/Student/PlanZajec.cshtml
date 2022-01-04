@@ -1,17 +1,19 @@
 ﻿@model List<ProjektZaliczeniowyDziekanat.DAL.Models.Zajecia>;
 @{
     ViewData["Title"] = "Plan zajęć - Wirtualny Dziekanat";
+    ViewData["ctrl"] = "Student";
 }
 
 
-<div class="text-center">
+<div class="text-center mt-5 p-5 rounded shadow-lg bg-light" >
     <h1>Plan Zajęć</h1>
 
     <form asp-action="PlanZajec" method="get">
         <div class="form-actions">
             <p>
-                <label for="SearchString"> Szukaj po nazwie: </label><input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                <input type="submit" value="Szukaj" class="btn btn-outline-dark btn-lg px-4" /> <hr />
+                <label for="SearchString" class="m-2"> Szukaj po nazwie: </label>
+                <input type="text" name="SearchString" class="m-2" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Szukaj" class="btn btn-outline-dark btn-lg px-4 m-2" /> <hr />
             </p>
         </div>
     </form>

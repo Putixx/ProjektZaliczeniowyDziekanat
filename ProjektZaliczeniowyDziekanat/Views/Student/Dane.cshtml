@@ -1,0 +1,58 @@
+﻿@model ProjektZaliczeniowyDziekanat.DAL.Models.Student
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dane -Wirtualny Dziekant";
+    ViewData["ctrl"] = "Student";
+    string date = Model.DataUrodzenia.ToString("d");
+    
+}
+
+
+<section id="about" class="about mt-5 p-3 bg-light shadow-lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="~/jpg/avatar.png" class="img-fluid">
+            </div>
+            <div class="col-lg-8 pt-4 pt-lg-0 content">
+                <h3 >Twoje Dane</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table">
+                            <tr>
+                                <td><strong>Nazwisko:</strong></td>
+                                <td><span>@Model.Nazwisko</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Imię:</strong></td>
+                                <td><span>@Model.Imie</span></td>
+
+                            </tr>
+                            <tr>
+                                <td><strong>Data ur.:</strong></td>
+                                <td><span>@date</span></td>
+
+                            </tr>
+                            <tr>
+                                <td><strong>Pesel:</strong></td>
+                                <td><span>@Model.PESEL</span></td>
+
+                            </tr>
+                            <tr>
+                                <td><strong>Nr Indeksu:</strong></td>
+                                <td><span>@Model.NumerIndeksu</span></td>
+
+                            </tr>
+                            <tr>
+                                <td><strong>Numer Grupy:</strong></td>
+                                <td><span>@Model.GrupaNr</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
