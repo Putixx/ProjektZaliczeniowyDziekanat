@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjektZaliczeniowyDziekanat.DAL.Models
 {
-    public class Wykladowca
+    public class WykladowcaDTO
     {
         [Key]
         public int WykladowcaID { get; set; }
@@ -12,6 +12,11 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public string StopienNaukowy { get; set; }
         [ForeignKey("Przedmiot")]
         public string ProwadzonyPrzedmiot { get; set; }
+        public string PESEL { get; set; }
+        public string AdresZamieszkania { get; set; }
+        public string MiejsceZamieszkania { get; set; }
+        public string Narodowosc { get; set; }
+        public string Obywatelstwo { get; set; }
 
 
         public virtual Przedmiot Przedmiot { get; set; }

@@ -21,21 +21,19 @@
     <table class="table">
         <thead>
             <tr>
-                <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["IndexSortPar"]"> ID </a> </th>
+                <th> Grupa </th>
                 <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["NameSortPar"]"> Nazwa Zajęć </a> </th>
                 <th> <a asp-action="PlanZajec" asp-route-sortOrder="@ViewData["DateSortPar"]"> Termin Zajęć </a> </th>
-                <th> Grupa </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td> @item.ZajeciaID </td>
-                    <td> @item.NazwaZajec </td>
-                    <td> @item.TerminZajec </td>
-                    <td> @item.GrupaNr </td>
-                </tr>
+            <tr>
+                <td> @item.GrupaNr </td>
+                <td> @item.NazwaPrzedmiotu </td>
+                <td> @item.TerminZajec </td>
+            </tr>
             }
         </tbody>
     </table>

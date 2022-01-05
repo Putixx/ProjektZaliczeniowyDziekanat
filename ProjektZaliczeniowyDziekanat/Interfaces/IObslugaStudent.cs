@@ -8,6 +8,7 @@ namespace ProjektZaliczeniowyDziekanat.Interfaces
     {
         List<Zajecia> WyswietlZajecia(Student ZalStudent, string sortOrder, string searchString);
         Student ZalogowanyStudent(int? StudentID);
+        StudentDTO ZalogowanyStudentDTO(int? StudentID);
         IQueryable<Zajecia> SortujZajecia(string sortOrder, IQueryable<Zajecia> zajecia);
         IQueryable<Zajecia> SzukajFrazyWZajeciach(string searchString, IQueryable<Zajecia> zajecia);
     }

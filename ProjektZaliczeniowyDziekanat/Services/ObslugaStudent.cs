@@ -20,7 +20,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
         {
             IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec where z.GrupaNr == ZalStudent.GrupaNr orderby z.TerminZajec select z;
 
-            if (sortOrder == "index_desc" || sortOrder == "date_desc" || sortOrder == "name_desc")
+            if (sortOrder == "date_desc" || sortOrder == "name_desc")
                 zajecia = SortujZajecia(sortOrder, zajecia);
 
             if (!String.IsNullOrEmpty(searchString))
@@ -40,18 +40,26 @@ namespace ProjektZaliczeniowyDziekanat.Services
                 return null;
         }
 
+        public StudentDTO ZalogowanyStudentDTO(int? StudentID)
+        {
+            if (StudentID != null)
+            {
+                StudentDTO studentDTO = dziekanatDb.StudenciDTO.First(x => x.StudentID == StudentID);
+                return studentDTO;
+            }
+            else
+                return null;
+        }
+
         public IQueryable<Zajecia> SortujZajecia(string sortOrder, IQueryable<Zajecia> zajecia)
         {
             switch (sortOrder)
             {
-                case "index_desc":
-                    zajecia = zajecia.OrderByDescending(z => z.ZajeciaID);
-                    break;
                 case "date_desc":
                     zajecia = zajecia.OrderByDescending(z => z.TerminZajec);
                     break;
                 case "name_desc":
-                    zajecia = zajecia.OrderByDescending(z => z.NazwaZajec);
+                    zajecia = zajecia.OrderByDescending(z => z.NazwaPrzedmiotu);
                     break;
                 default:
                     zajecia = zajecia.OrderBy(z => z.TerminZajec);
@@ -63,7 +71,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
         public IQueryable<Zajecia> SzukajFrazyWZajeciach(string searchString, IQueryable<Zajecia> zajecia)
         {
             if (!String.IsNullOrEmpty(searchString))
-                zajecia = zajecia.Where(z => z.NazwaZajec.Contains(searchString));
+                zajecia = zajecia.Where(z => z.NazwaPrzedmiotu.Contains(searchString));
 
             return zajecia;
         }

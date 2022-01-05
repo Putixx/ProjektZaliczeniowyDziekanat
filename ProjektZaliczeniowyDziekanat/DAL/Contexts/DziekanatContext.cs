@@ -11,9 +11,12 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
         public DbSet<StudentLogowanie> StudenciLogowanie { get; set; } 
         public DbSet<Platnosc> Platnosci { get; set; }
         public DbSet<Grupa> Grupy { get; set; }
+        public DbSet<Przedmiot> Przedmioty { get; set; }
         public DbSet<Student> Studenci { get; set; }
+        public DbSet<StudentDTO> StudenciDTO { get; set; }
         public DbSet<StudentOceny> StudenciOceny { get; set; }
         public DbSet<Wykladowca> Wykladowcy { get; set; }
+        public DbSet<WykladowcaDTO> WykladowcyDTO { get; set; }
         public DbSet<WykladowcaLogowanie> WykladowcyLogowanie { get; set; }
         public DbSet<Zajecia> PlanZajec { get; set; }
 

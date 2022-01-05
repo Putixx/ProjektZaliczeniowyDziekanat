@@ -48,7 +48,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public IActionResult Dane()
         {
-            Wykladowca ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            WykladowcaDTO ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowcaDTO(HttpContext.Session.GetInt32("wykladowcaID"));
             return View(ZalWykladowca);
         }
 

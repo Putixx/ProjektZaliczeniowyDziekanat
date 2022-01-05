@@ -7,5 +7,6 @@ namespace ProjektZaliczeniowyDziekanat.Interfaces
     {
         List<Zajecia> WyswietlZajecia(Wykladowca ZalWykladowca);
         Wykladowca ZalogowanyWykladowca(int? WykladowcaID);
+        WykladowcaDTO ZalogowanyWykladowcaDTO(int? WykladowcaID);
     }
 }

@@ -17,7 +17,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
 
         public List<Zajecia> WyswietlZajecia(Wykladowca ZalWykladowca)
         {
-            IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec /* where z.WykladowcaID == ZalWykladowca.WykladowcaID */ orderby z.TerminZajec select z;
+            IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec where z.WykladowcaID == ZalWykladowca.WykladowcaID  orderby z.TerminZajec select z;
 
             return zajecia.ToList();
         }
@@ -28,6 +28,17 @@ namespace ProjektZaliczeniowyDziekanat.Services
             {
                 Wykladowca wykladowca = dziekanatDb.Wykladowcy.First(x => x.WykladowcaID == WykladowcaID);
                 return wykladowca;
+            }
+            else
+                return null;
+        }
+
+        public WykladowcaDTO ZalogowanyWykladowcaDTO(int? WykladowcaID)
+        {
+            if (WykladowcaID != null)
+            {
+                WykladowcaDTO wykladowcaDTO = dziekanatDb.WykladowcyDTO.First(x => x.WykladowcaID == WykladowcaID);
+                return wykladowcaDTO;
             }
             else
                 return null;

@@ -11,10 +11,13 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.Database.EnsureCreated();
 
             InitializeGrupy(ref context);
+            InitializePrzedmioty(ref context);
             InitializeStudenci(ref context);
+            InitializeStudenciDTO(ref context);
             InitializeStudenciLogowanie(ref context);
             InitializePlatnosci(ref context);
             InitializeWykladowcy(ref context);
+            InitializeWykladowcyDTO(ref context);
             InitializeWykladowcyLogowanie(ref context);
             InitializeZajecia(ref context);
             InitializeStudenciOceny(ref context);
@@ -40,6 +43,29 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             context.SaveChanges();
         }
 
+        public static void InitializePrzedmioty(ref DziekanatContext context)
+        {
+            if (context.Przedmioty.Any())
+                return;
+
+            Przedmiot[] przedmioty = new Przedmiot[]
+            {
+                new Przedmiot{ NazwaPrzedmiotu = "Programowanie .NET"},
+                new Przedmiot{ NazwaPrzedmiotu = "Programowanie C#"},
+                new Przedmiot{ NazwaPrzedmiotu = "Programowanie Java"},
+                new Przedmiot{ NazwaPrzedmiotu = "Bazy danych"},
+                new Przedmiot{ NazwaPrzedmiotu = "Wzorce projektowe"},
+                new Przedmiot{ NazwaPrzedmiotu = "Zarządzanie projektem"},
+                new Przedmiot{ NazwaPrzedmiotu = "UX"},
+                new Przedmiot{ NazwaPrzedmiotu = "Microsoft"}
+            };
+
+            foreach (Przedmiot p in przedmioty)
+                context.Przedmioty.Add(p);
+
+            context.SaveChanges();
+        }
+
         public static void InitializeStudenci(ref DziekanatContext context)
         {
             if (context.Studenci.Any())
@@ -47,15 +73,35 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
             Student[] studenci = new Student[]
             {
-                new Student{ NumerIndeksu = "1001", Imie = "Adam",    Nazwisko = "Nowak", DataUrodzenia = DateTime.Parse("10.12.1999"), PESEL = "12345678910", GrupaNr = "Gr1IS" },
-                new Student{ NumerIndeksu = "1002", Imie = "Andrzej", Nazwisko = "Duda",  DataUrodzenia = DateTime.Parse("15.10.1999"), PESEL = "12345678911", GrupaNr = "Gr3IS" },
-                new Student{ NumerIndeksu = "1003", Imie = "Anna",    Nazwisko = "Rożek", DataUrodzenia = DateTime.Parse("19.02.1999"), PESEL = "12345678912", GrupaNr = "Gr2IS" },
-                new Student{ NumerIndeksu = "1007", Imie = "Justyna", Nazwisko = "Dzik",  DataUrodzenia = DateTime.Parse("25.07.2000"), PESEL = "12345678913", GrupaNr = "Gr2IS" },
-                new Student{ NumerIndeksu = "1010", Imie = "Michał",  Nazwisko = "Lis",   DataUrodzenia = DateTime.Parse("10.05.1997"), PESEL = "12345678914", GrupaNr = "Gr1IS" }
+                new Student{ NumerIndeksu = "1001", Imie = "Adam",    Nazwisko = "Nowak", GrupaNr = "Gr1IS" },
+                new Student{ NumerIndeksu = "1002", Imie = "Andrzej", Nazwisko = "Duda",  GrupaNr = "Gr3IS" },
+                new Student{ NumerIndeksu = "1003", Imie = "Anna",    Nazwisko = "Rożek", GrupaNr = "Gr2IS" },
+                new Student{ NumerIndeksu = "1007", Imie = "Justyna", Nazwisko = "Dzik",  GrupaNr = "Gr2IS" },
+                new Student{ NumerIndeksu = "1010", Imie = "Michał",  Nazwisko = "Lis",   GrupaNr = "Gr1IS" }
             };
 
             foreach (Student s in studenci)
                 context.Studenci.Add(s);
+
+            context.SaveChanges();
+        }
+
+        public static void InitializeStudenciDTO(ref DziekanatContext context)
+        {
+            if (context.StudenciDTO.Any())
+                return;
+
+            StudentDTO[] studenciDTO = new StudentDTO[]
+            {
+                new StudentDTO{ NumerIndeksu = "1001", Imie = "Adam",    Nazwisko = "Nowak", DataUrodzenia = DateTime.Parse("10.12.1999"), MiejsceUrodzenia = "Kraków",   AdresZamieszkania = "Stare miasto x",     MiejsceZamieszkania = "Kraków", Narodowosc = "Polska", Obywatelstwo = "polskie", PESEL = "12345678910", GrupaNr = "Gr1IS" },
+                new StudentDTO{ NumerIndeksu = "1002", Imie = "Andrzej", Nazwisko = "Duda",  DataUrodzenia = DateTime.Parse("15.10.1999"), MiejsceUrodzenia = "Katowice", AdresZamieszkania = "Prądnik Czerwony x", MiejsceZamieszkania = "Kraków", Narodowosc = "Polska", Obywatelstwo = "polskie", PESEL = "12345678911", GrupaNr = "Gr3IS" },
+                new StudentDTO{ NumerIndeksu = "1003", Imie = "Anna",    Nazwisko = "Rożek", DataUrodzenia = DateTime.Parse("19.02.1999"), MiejsceUrodzenia = "Gdańsk",   AdresZamieszkania = "Prądnik Czerwony x", MiejsceZamieszkania = "Kraków", Narodowosc = "Polska", Obywatelstwo = "polskie", PESEL = "12345678912", GrupaNr = "Gr2IS" },
+                new StudentDTO{ NumerIndeksu = "1007", Imie = "Justyna", Nazwisko = "Dzik",  DataUrodzenia = DateTime.Parse("25.07.2000"), MiejsceUrodzenia = "Tarnów",   AdresZamieszkania = "Prądnik Biały x",    MiejsceZamieszkania = "Kraków", Narodowosc = "Polska", Obywatelstwo = "polskie", PESEL = "12345678913", GrupaNr = "Gr2IS" },
+                new StudentDTO{ NumerIndeksu = "1010", Imie = "Michał",  Nazwisko = "Lis",   DataUrodzenia = DateTime.Parse("10.05.1997"), MiejsceUrodzenia = "Szczecin", AdresZamieszkania = "Grzegórzki x",       MiejsceZamieszkania = "Kraków", Narodowosc = "Polska", Obywatelstwo = "polskie", PESEL = "12345678914", GrupaNr = "Gr1IS" }
+            };
+
+            foreach (StudentDTO s in studenciDTO)
+                context.StudenciDTO.Add(s);
 
             context.SaveChanges();
         }
@@ -108,18 +154,42 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
             Wykladowca[] wykladowcy = new Wykladowca[]
             {
-                new Wykladowca{ Imie = "Mateusz",   Nazwisko = "Adamski",      StopienNaukowy = "Profesor", PESEL = "12345678915" },
-                new Wykladowca{ Imie = "Arkadiusz", Nazwisko = "Kędra",        StopienNaukowy = "Doktor",   PESEL = "12345678916" },
-                new Wykladowca{ Imie = "Wojciech",  Nazwisko = "Nowak",        StopienNaukowy = "Doktor",   PESEL = "12345678917" },
-                new Wykladowca{ Imie = "Grzegorz",  Nazwisko = "Olkowicz",     StopienNaukowy = "Magister", PESEL = "12345678918" },
-                new Wykladowca{ Imie = "Janusz",    Nazwisko = "Kłos",         StopienNaukowy = "Magister", PESEL = "12345678919" },
-                new Wykladowca{ Imie = "Jeży",      Nazwisko = "Królik",       StopienNaukowy = "Profesor", PESEL = "12345678920" },
-                new Wykladowca{ Imie = "Jarosław",  Nazwisko = "Parafiańczyk", StopienNaukowy = "Profesor", PESEL = "12345678921" },
-                new Wykladowca{ Imie = "Emil",      Nazwisko = "Pawlicz",      StopienNaukowy = "Profesor", PESEL = "12345678922" }
+                new Wykladowca{ Imie = "Mateusz",   Nazwisko = "Adamski",      StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Programowanie .NET",    },
+                new Wykladowca{ Imie = "Arkadiusz", Nazwisko = "Kędra",        StopienNaukowy = "Doktor",   ProwadzonyPrzedmiot = "Programowanie C#",      },
+                new Wykladowca{ Imie = "Wojciech",  Nazwisko = "Nowak",        StopienNaukowy = "Doktor",   ProwadzonyPrzedmiot = "Programowanie Java",    },
+                new Wykladowca{ Imie = "Grzegorz",  Nazwisko = "Olkowicz",     StopienNaukowy = "Magister", ProwadzonyPrzedmiot = "Bazy danych",           },
+                new Wykladowca{ Imie = "Janusz",    Nazwisko = "Kłos",         StopienNaukowy = "Magister", ProwadzonyPrzedmiot = "Wzorce projektowe",     },
+                new Wykladowca{ Imie = "Jeży",      Nazwisko = "Królik",       StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Zarządzanie projektem", },
+                new Wykladowca{ Imie = "Jarosław",  Nazwisko = "Parafiańczyk", StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "UX",                    },
+                new Wykladowca{ Imie = "Emil",      Nazwisko = "Pawlicz",      StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Microsoft",             }
             };
 
             foreach (Wykladowca w in wykladowcy)
                 context.Wykladowcy.Add(w);
+
+            context.SaveChanges();
+        }
+
+        public static void InitializeWykladowcyDTO(ref DziekanatContext context)
+        {
+            if (context.WykladowcyDTO.Any())
+                return;
+
+
+            WykladowcaDTO[] wykladowcyDTO = new WykladowcaDTO[]
+            {
+                new WykladowcaDTO{ Imie = "Mateusz",   Nazwisko = "Adamski",      StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Programowanie .NET",    PESEL = "12345678915", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Stare miasto x",     Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Arkadiusz", Nazwisko = "Kędra",        StopienNaukowy = "Doktor",   ProwadzonyPrzedmiot = "Programowanie C#",      PESEL = "12345678916", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Prądnik Czerwony x", Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Wojciech",  Nazwisko = "Nowak",        StopienNaukowy = "Doktor",   ProwadzonyPrzedmiot = "Programowanie Java",    PESEL = "12345678917", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Stare miasto x",     Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Grzegorz",  Nazwisko = "Olkowicz",     StopienNaukowy = "Magister", ProwadzonyPrzedmiot = "Bazy danych",           PESEL = "12345678918", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Prądnik Biały x",    Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Janusz",    Nazwisko = "Kłos",         StopienNaukowy = "Magister", ProwadzonyPrzedmiot = "Wzorce projektowe",     PESEL = "12345678919", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Prądnik Biały x",    Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Jeży",      Nazwisko = "Królik",       StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Zarządzanie projektem", PESEL = "12345678920", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Prądnik Czerwony x", Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Jarosław",  Nazwisko = "Parafiańczyk", StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "UX",                    PESEL = "12345678921", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Grzegórzki x",       Narodowosc = "Polska", Obywatelstwo = "polskie" },
+                new WykladowcaDTO{ Imie = "Emil",      Nazwisko = "Pawlicz",      StopienNaukowy = "Profesor", ProwadzonyPrzedmiot = "Microsoft",             PESEL = "12345678922", MiejsceZamieszkania = "Kraków", AdresZamieszkania = "Prądnik Czerwony x", Narodowosc = "Polska", Obywatelstwo = "polskie" }
+            };
+
+            foreach (WykladowcaDTO w in wykladowcyDTO)
+                context.WykladowcyDTO.Add(w);
 
             context.SaveChanges();
         }
@@ -155,32 +225,32 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
             Zajecia[] zajecia = new Zajecia[]
             {
-                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("13.01.2022 10:00:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("13.01.2022 11:45:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr1IS" },
-                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 15:00:00"), GrupaNr = "Gr1IS" },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr1IS", WykladowcaID = 1 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr1IS", WykladowcaID = 2 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr1IS", WykladowcaID = 3 },
+                new Zajecia{ NazwaPrzedmiotu = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr1IS", WykladowcaID = 4 },
+                new Zajecia{ NazwaPrzedmiotu = "Wzorce projektowe",     TerminZajec = DateTime.Parse("13.01.2022 10:00:00"), GrupaNr = "Gr1IS", WykladowcaID = 5 },
+                new Zajecia{ NazwaPrzedmiotu = "Zarządzanie projektem", TerminZajec = DateTime.Parse("13.01.2022 11:45:00"), GrupaNr = "Gr1IS", WykladowcaID = 6 },
+                new Zajecia{ NazwaPrzedmiotu = "UX",                    TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr1IS", WykladowcaID = 7 },
+                new Zajecia{ NazwaPrzedmiotu = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 15:00:00"), GrupaNr = "Gr1IS", WykladowcaID = 8 },
 
-                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 11:45:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("12.01.2022 15:00:00"), GrupaNr = "Gr2IS" },
-                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr2IS" },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr2IS", WykladowcaID = 1 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr2IS", WykladowcaID = 2 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr2IS", WykladowcaID = 3 },
+                new Zajecia{ NazwaPrzedmiotu = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 11:45:00"), GrupaNr = "Gr2IS", WykladowcaID = 4 },
+                new Zajecia{ NazwaPrzedmiotu = "Wzorce projektowe",     TerminZajec = DateTime.Parse("12.01.2022 10:00:00"), GrupaNr = "Gr2IS", WykladowcaID = 5 },
+                new Zajecia{ NazwaPrzedmiotu = "Zarządzanie projektem", TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr2IS", WykladowcaID = 6 },
+                new Zajecia{ NazwaPrzedmiotu = "UX",                    TerminZajec = DateTime.Parse("12.01.2022 15:00:00"), GrupaNr = "Gr2IS", WykladowcaID = 7 },
+                new Zajecia{ NazwaPrzedmiotu = "Microsoft",             TerminZajec = DateTime.Parse("13.01.2022 13:15:00"), GrupaNr = "Gr2IS", WykladowcaID = 8 },
 
-                new Zajecia{ NazwaZajec = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Wzorce projektowe",     TerminZajec = DateTime.Parse("14.01.2022 10:00:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Zarządzanie projektem", TerminZajec = DateTime.Parse("14.01.2022 11:45:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "UX",                    TerminZajec = DateTime.Parse("14.01.2022 13:15:00"), GrupaNr = "Gr3IS" },
-                new Zajecia{ NazwaZajec = "Microsoft",             TerminZajec = DateTime.Parse("14.01.2022 15:00:00"), GrupaNr = "Gr3IS" }
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie .NET",    TerminZajec = DateTime.Parse("11.01.2022 13:15:00"), GrupaNr = "Gr3IS", WykladowcaID = 1 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie C#",      TerminZajec = DateTime.Parse("11.01.2022 10:00:00"), GrupaNr = "Gr3IS", WykladowcaID = 2 },
+                new Zajecia{ NazwaPrzedmiotu = "Programowanie Java",    TerminZajec = DateTime.Parse("11.01.2022 11:45:00"), GrupaNr = "Gr3IS", WykladowcaID = 3 },
+                new Zajecia{ NazwaPrzedmiotu = "Bazy danych",           TerminZajec = DateTime.Parse("12.01.2022 13:15:00"), GrupaNr = "Gr3IS", WykladowcaID = 4 },
+                new Zajecia{ NazwaPrzedmiotu = "Wzorce projektowe",     TerminZajec = DateTime.Parse("14.01.2022 10:00:00"), GrupaNr = "Gr3IS", WykladowcaID = 5 },
+                new Zajecia{ NazwaPrzedmiotu = "Zarządzanie projektem", TerminZajec = DateTime.Parse("14.01.2022 11:45:00"), GrupaNr = "Gr3IS", WykladowcaID = 6 },
+                new Zajecia{ NazwaPrzedmiotu = "UX",                    TerminZajec = DateTime.Parse("14.01.2022 13:15:00"), GrupaNr = "Gr3IS", WykladowcaID = 7 },
+                new Zajecia{ NazwaPrzedmiotu = "Microsoft",             TerminZajec = DateTime.Parse("14.01.2022 15:00:00"), GrupaNr = "Gr3IS", WykladowcaID = 8 }
             };
 
             foreach (Zajecia z in zajecia)

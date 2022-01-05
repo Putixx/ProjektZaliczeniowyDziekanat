@@ -10,11 +10,16 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         public int ZajeciaID { get; set; }
         [ForeignKey("Grupa")]
         public string GrupaNr { get; set; }
-        public string NazwaZajec { get; set; }
+        [ForeignKey("Przedmiot")]
+        public string NazwaPrzedmiotu { get; set; }
         public DateTime TerminZajec { get; set; }
+        [ForeignKey("Wykladowca")]
+        public int WykladowcaID { get; set; }
 
 
 
         public virtual Grupa Grupa { get; set; }
+        public virtual Przedmiot Przedmiot { get; set; }
+        public virtual Wykladowca Wykladowca { get; set; }
     }
 }

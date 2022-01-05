@@ -52,15 +52,22 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                     b.ToTable("Platnosci");
                 });
 
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.Przedmiot", b =>
+                {
+                    b.Property<string>("NazwaPrzedmiotu")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("NazwaPrzedmiotu");
+
+                    b.ToTable("Przedmioty");
+                });
+
             modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.Student", b =>
                 {
                     b.Property<int>("StudentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DataUrodzenia")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("GrupaNr")
                         .HasColumnType("nvarchar(450)");
@@ -74,6 +81,50 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                     b.Property<string>("NumerIndeksu")
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("StudentID");
+
+                    b.HasIndex("GrupaNr");
+
+                    b.ToTable("Studenci");
+                });
+
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.StudentDTO", b =>
+                {
+                    b.Property<int>("StudentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdresZamieszkania")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataUrodzenia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GrupaNr")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Imie")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiejsceUrodzenia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiejsceZamieszkania")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Narodowosc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nazwisko")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumerIndeksu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Obywatelstwo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PESEL")
                         .HasColumnType("nvarchar(max)");
 
@@ -81,7 +132,7 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
 
                     b.HasIndex("GrupaNr");
 
-                    b.ToTable("Studenci");
+                    b.ToTable("StudenciDTO");
                 });
 
             modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.StudentLogowanie", b =>
@@ -147,15 +198,58 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                     b.Property<string>("Nazwisko")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PESEL")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ProwadzonyPrzedmiot")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StopienNaukowy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WykladowcaID");
 
+                    b.HasIndex("ProwadzonyPrzedmiot");
+
                     b.ToTable("Wykladowcy");
+                });
+
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.WykladowcaDTO", b =>
+                {
+                    b.Property<int>("WykladowcaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdresZamieszkania")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imie")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiejsceZamieszkania")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Narodowosc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nazwisko")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Obywatelstwo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PESEL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProwadzonyPrzedmiot")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StopienNaukowy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WykladowcaID");
+
+                    b.HasIndex("ProwadzonyPrzedmiot");
+
+                    b.ToTable("WykladowcyDTO");
                 });
 
             modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.WykladowcaLogowanie", b =>
@@ -193,15 +287,22 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                     b.Property<string>("GrupaNr")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("NazwaZajec")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("NazwaPrzedmiotu")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("TerminZajec")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("WykladowcaID")
+                        .HasColumnType("int");
+
                     b.HasKey("ZajeciaID");
 
                     b.HasIndex("GrupaNr");
+
+                    b.HasIndex("NazwaPrzedmiotu");
+
+                    b.HasIndex("WykladowcaID");
 
                     b.ToTable("PlanZajec");
                 });
@@ -218,6 +319,15 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                 });
 
             modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.Student", b =>
+                {
+                    b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Grupa", "Grupa")
+                        .WithMany()
+                        .HasForeignKey("GrupaNr");
+
+                    b.Navigation("Grupa");
+                });
+
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.StudentDTO", b =>
                 {
                     b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Grupa", "Grupa")
                         .WithMany()
@@ -256,6 +366,24 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                     b.Navigation("Zajecia");
                 });
 
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.Wykladowca", b =>
+                {
+                    b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Przedmiot", "Przedmiot")
+                        .WithMany()
+                        .HasForeignKey("ProwadzonyPrzedmiot");
+
+                    b.Navigation("Przedmiot");
+                });
+
+            modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.WykladowcaDTO", b =>
+                {
+                    b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Przedmiot", "Przedmiot")
+                        .WithMany()
+                        .HasForeignKey("ProwadzonyPrzedmiot");
+
+                    b.Navigation("Przedmiot");
+                });
+
             modelBuilder.Entity("ProjektZaliczeniowyDziekanat.DAL.Models.WykladowcaLogowanie", b =>
                 {
                     b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Wykladowca", "Wykladowca")
@@ -273,7 +401,21 @@ namespace ProjektZaliczeniowyDziekanat.Migrations
                         .WithMany()
                         .HasForeignKey("GrupaNr");
 
+                    b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Przedmiot", "Przedmiot")
+                        .WithMany()
+                        .HasForeignKey("NazwaPrzedmiotu");
+
+                    b.HasOne("ProjektZaliczeniowyDziekanat.DAL.Models.Wykladowca", "Wykladowca")
+                        .WithMany()
+                        .HasForeignKey("WykladowcaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Grupa");
+
+                    b.Navigation("Przedmiot");
+
+                    b.Navigation("Wykladowca");
                 });
 #pragma warning restore 612, 618
         }

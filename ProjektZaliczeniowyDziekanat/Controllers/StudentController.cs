@@ -33,8 +33,8 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public IActionResult Dane()
         {
-            Student student = obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID"));
-            return View(student);
+            StudentDTO studentDTO = obslugaStudent.ZalogowanyStudentDTO(HttpContext.Session.GetInt32("studentID"));
+            return View(studentDTO);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -52,7 +52,6 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return BadRequest();
             else
             {
-                ViewData["IndexSortPar"] = String.IsNullOrEmpty(sortOrder) ? "index_desc" : "";
                 ViewData["DateSortPar"] = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
                 ViewData["NameSortPar"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewData["CurrentFilter"] = searchString;
