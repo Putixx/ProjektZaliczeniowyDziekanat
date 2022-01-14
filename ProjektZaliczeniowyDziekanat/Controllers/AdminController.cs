@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
@@ -22,26 +23,39 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {                      
-            return View();
+        {
+            if (HttpContext.Session.GetInt32("adminID") != null) 
+                return View();
+            else 
+                return BadRequest();
+
         }
 
         [HttpGet]
         public IActionResult PlanZajec()
         {
-            return View(obslugaAdmin.PobierzPlanZajecAsync());
+            if (HttpContext.Session.GetInt32("adminID") != null) 
+                return View(obslugaAdmin.PobierzPlanZajecAsync());
+            else 
+                return BadRequest();
         }
 
         [HttpGet]
         public IActionResult Studenci()
         {
-            return View(obslugaAdmin.PobierzListeStudentowAsync());
+            if (HttpContext.Session.GetInt32("adminID") != null) 
+                return View(obslugaAdmin.PobierzListeStudentowAsync());
+            else 
+                return BadRequest();
         }
 
         [HttpGet]
         public IActionResult Wykladowcy()
         {
-            return  View(obslugaAdmin.PobierzListeWykladowcowAsync());
+            if (HttpContext.Session.GetInt32("adminID") != null) 
+                return View(obslugaAdmin.PobierzListeWykladowcowAsync());
+            else 
+                return BadRequest();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

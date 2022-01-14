@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AdminControllerTest.cs" />
     <Compile Remove="ObslugaWykladowcaTest.cs" />
-    <Compile Remove="StudentControllerTest.cs" />
     <Compile Remove="UnitTest1.cs" />
   </ItemGroup>
 

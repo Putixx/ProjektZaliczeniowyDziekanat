@@ -32,6 +32,12 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult LoginAdmina()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult LoginWykladowcy(string Login, string Haslo)
         {
@@ -41,7 +47,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 {
                     HttpContext.Session.SetInt32("wykladowcaID", obslugaAccount.PobierzZalogowanegoWykladowce(Login, Haslo).WykladowcaID);
                     ViewData["BadLogin"] = "";
-                    ViewData["ctrl"] = "Student";
+                    ViewData["ctrl"] = "Wykladowca";
                     return RedirectToAction("Index", "Wykladowca");
                 }
                 else
@@ -64,8 +70,31 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 {
                     HttpContext.Session.SetInt32("studentID", obslugaAccount.PobierzZalogowanegoStudenta(Login, Haslo).StudentID);
                     ViewData["BadLogin"] = "";
-                    ViewData["ctrl"] = "Wykladowca";
+                    ViewData["ctrl"] = "Student";
                     return RedirectToAction("Index", "Student");
+                }
+                else
+                    return BadRequest();
+
+            }
+            catch (InvalidOperationException)
+            {
+                ViewData["BadLogin"] = "Zły login lub hasło";
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult LoginAdmina(string Login, string Haslo)
+        {
+            try
+            {
+                if (obslugaAccount.CzyAdmin(Login, Haslo))
+                {
+                    HttpContext.Session.SetInt32("adminID", 1);
+                    ViewData["BadLogin"] = "";
+                    ViewData["ctrl"] = "Admin";
+                    return RedirectToAction("Index", "Admin");
                 }
                 else
                     return BadRequest();
@@ -80,9 +109,17 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();
-            ModelState.Clear();
-            return RedirectToAction("UserRole", "Account");
+            try
+            {
+                HttpContext.Session.Clear();
+                ModelState.Clear();
+                return RedirectToAction("UserRole", "Account");
+            }
+            catch (Exception)
+            {
+                ModelState.Clear();
+                return RedirectToAction("UserRole", "Account");
+            }
         }
     }
 }

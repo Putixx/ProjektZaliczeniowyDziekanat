@@ -24,6 +24,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
                 return false;
         }
 
+
         public bool WyszukajStudentaDoZalogowania(string Login, string Haslo)
         {
             StudentLogowanie studentDoZalogowania = dziekanatDb.StudenciLogowanie.First(x => x.Login == Login && x.Haslo == Haslo);

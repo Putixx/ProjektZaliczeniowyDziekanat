@@ -38,10 +38,34 @@ namespace ProjektZaliczniowyDziekanat.Test.Unit
             StudentLogowanie loginStudenta = new StudentLogowanie() { Login = "login", Haslo = "haslo" };
             //Act
 
-            var result = controller.LoginWykladowcy(loginStudenta.Login, loginStudenta.Haslo);
+            var result = controller.LoginStudenta(loginStudenta.Login, loginStudenta.Haslo);
             //Assert
 
             Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public void LoginAdmina_BrakOdwolania_ZwracaBadRequest()
+        {
+            //Arrange
+            AccountController controller = new AccountController(obslugaAccountStub.Object);
+            Admin loginAdmina = new Admin() { Login = "login", Haslo = "haslo" };
+            //Act
+
+            var result = controller.LoginAdmina(loginAdmina.Login, loginAdmina.Haslo);
+            //Assert
+
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public void Logout_PustaSesja_ZwracaRedirectToAction()
+        {
+            AccountController controller = new AccountController(obslugaAccountStub.Object);
+
+            var result = controller.Logout();
+
+            Assert.IsType<RedirectToActionResult>(result);
         }
     }
 }
