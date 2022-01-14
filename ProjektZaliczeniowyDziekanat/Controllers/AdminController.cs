@@ -26,6 +26,24 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult PlanZajec()
+        {
+            return View(obslugaAdmin.PobierzPlanZajecAsync());
+        }
+
+        [HttpGet]
+        public IActionResult Studenci()
+        {
+            return View(obslugaAdmin.PobierzListeStudentowAsync());
+        }
+
+        [HttpGet]
+        public IActionResult Wykladowcy()
+        {
+            return  View(obslugaAdmin.PobierzListeWykladowcowAsync());
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
