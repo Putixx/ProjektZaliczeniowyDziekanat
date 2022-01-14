@@ -8,6 +8,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
 
         public DziekanatContext(DbContextOptions<DziekanatContext> options) : base(options) {    }
 
+        public DbSet<Admin> Admini { get; set; } 
         public DbSet<StudentLogowanie> StudenciLogowanie { get; set; } 
         public DbSet<Platnosc> Platnosci { get; set; }
         public DbSet<Grupa> Grupy { get; set; }

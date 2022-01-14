@@ -14,6 +14,16 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
+        public bool CzyAdmin(string Login, string Haslo)
+        {
+            Admin adminLogin = dziekanatDb.Admini.First(x => x.Login == Login && x.Haslo == Haslo);
+
+            if (!(adminLogin == null))
+                return true;
+            else
+                return false;
+        }
+
         public bool WyszukajStudentaDoZalogowania(string Login, string Haslo)
         {
             StudentLogowanie studentDoZalogowania = dziekanatDb.StudenciLogowanie.First(x => x.Login == Login && x.Haslo == Haslo);

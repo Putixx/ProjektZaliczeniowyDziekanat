@@ -2,6 +2,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using ProjektZaliczeniowyDziekanat.Interfaces;
+using System.Diagnostics;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {

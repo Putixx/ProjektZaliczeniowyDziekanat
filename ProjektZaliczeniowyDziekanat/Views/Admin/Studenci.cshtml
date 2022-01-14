@@ -1,0 +1,60 @@
+﻿@model List<ProjektZaliczeniowyDziekanat.DAL.Models.StudentDTO>;
+@{
+    ViewData["Title"] = "Studenci - Wirtualny Dziekanat";
+    ViewData["ctrl"] = "Admin";
+}
+
+
+<div class="text-center mt-5 p-5 rounded shadow-lg bg-light">
+    <h1>Plan Zajęć</h1>
+
+    <form asp-action="PlanZajec" method="get">
+        <div class="form-actions">
+            <p>
+                <label for="SearchString" class="m-2"> Szukaj po nazwisku: </label>
+                <input type="text" name="SearchString" class="m-2" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Szukaj" class="btn btn-outline-dark btn-lg px-4 m-2" /> <hr />
+            </p>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Numer Indeksu </th>
+                <th> Imię </th>
+                <th> Nazwisko </th>
+                <th> Grupa </th>
+                <th> PESEL </th>
+                <th> Data urodzenia </th>
+                <th> Miejsce urodzenia </th>
+                <th> Adres zamieszkania </th>
+                <th> Miejsce zamieszkania </th>
+                <th> Narodowość </th>
+                <th> Obywatelstwo </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @item.StudentID </td>
+                <td> @item.NumerIndeksu </td>
+                <td> @item.Imie </td>
+                <td> @item.Nazwisko </td>
+                <td> @item.GrupaNr </td>
+                <td> @item.PESEL </td>
+                <td> @item.DataUrodzenia </td>
+                <td> @item.MiejsceUrodzenia </td>
+                <td> @item.AdresZamieszkania </td>
+                <td> @item.MiejsceZamieszkania </td>
+                <td> @item.Narodowosc </td>
+                <td> @item.Obywatelstwo </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ProjektZaliczeniowyDziekanat.Models;
 using System;
 using System.Diagnostics;
