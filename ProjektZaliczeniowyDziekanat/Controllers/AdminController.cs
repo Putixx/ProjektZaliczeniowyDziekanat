@@ -7,20 +7,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
+using ProjektZaliczeniowyDziekanat.Interfaces;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IObslugaAdmin obslugaAdmin;
 
-        public HomeController(ILogger<HomeController> logger)
+        public AdminController(IObslugaAdmin obslugaAdmin)
         {
-            _logger = logger;
-        }
-        public IActionResult Privacy()
-        {
-            return View();
+            this.obslugaAdmin = obslugaAdmin;
         }
 
         [HttpGet]
@@ -28,6 +25,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         {                      
             return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ProjektZaliczeniowyDziekanat.Models;
 using System;
 using System.Diagnostics;
@@ -13,7 +12,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
     {
         private readonly IObslugaStudent obslugaStudent;
 
-        public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaStudent)
+        public StudentController(IObslugaStudent obslugaStudent)
         {
             this.obslugaStudent = obslugaStudent;
         }

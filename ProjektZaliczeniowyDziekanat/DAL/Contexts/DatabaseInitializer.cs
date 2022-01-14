@@ -10,6 +10,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
         {
             context.Database.EnsureCreated();
 
+            InitializeAdmini(ref context);
             InitializeGrupy(ref context);
             InitializePrzedmioty(ref context);
             InitializeStudenci(ref context);
@@ -21,6 +22,22 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Contexts
             InitializeWykladowcyLogowanie(ref context);
             InitializeZajecia(ref context);
             InitializeStudenciOceny(ref context);
+
+            context.SaveChanges();
+        }
+
+        public static void InitializeAdmini(ref DziekanatContext context)
+        {
+            if (context.Admini.Any())
+                return;
+
+            Admin[] admini = new Admin[]
+            {
+                new Admin{ Login = "admin", Haslo = "admin"}
+            };
+
+            foreach (Admin a in admini)
+                context.Admini.Add(a);
 
             context.SaveChanges();
         }
