@@ -80,6 +80,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            ModelState.Clear();
             return RedirectToAction("UserRole", "Account");
         }
     }

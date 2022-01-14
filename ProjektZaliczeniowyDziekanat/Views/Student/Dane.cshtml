@@ -2,9 +2,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dane -Wirtualny Dziekant";
-    ViewData["ctrl"] = "Student";
-    string date = Model.DataUrodzenia.ToString("d");
-    
+    ViewData["ctrl"] = "Student"; 
 }
 
 
@@ -39,7 +37,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Data ur.:</strong></td>
-                                <td><span>@date</span></td>
+                                <td><span>@Model.DataUrodzenia.ToString("d")</span></td>
 
                             </tr>
                             <tr>

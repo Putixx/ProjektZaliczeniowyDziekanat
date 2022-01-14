@@ -49,7 +49,11 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         public IActionResult Dane()
         {
             WykladowcaDTO ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowcaDTO(HttpContext.Session.GetInt32("wykladowcaID"));
-            return View(ZalWykladowca);
+
+            if (ZalWykladowca == null)
+                return BadRequest();
+            else
+                return View(ZalWykladowca);
         }
 
         [HttpGet]

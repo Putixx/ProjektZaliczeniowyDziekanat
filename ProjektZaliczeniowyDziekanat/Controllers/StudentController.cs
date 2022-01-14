@@ -12,8 +12,9 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
     public class StudentController : Controller
     {
         private readonly IObslugaStudent obslugaStudent;
+        
 
-        public StudentController(ILogger<HomeController> logger, IObslugaStudent obslugaStudent)
+        public StudentController(IObslugaStudent obslugaStudent)
         {
             this.obslugaStudent = obslugaStudent;
         }
@@ -32,9 +33,13 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
 
         [HttpGet]
         public IActionResult Dane()
-        {
+        {           
             StudentDTO studentDTO = obslugaStudent.ZalogowanyStudentDTO(HttpContext.Session.GetInt32("studentID"));
-            return View(studentDTO);
+
+            if (studentDTO == null)
+                return BadRequest();
+            else
+                return View(studentDTO);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
