@@ -28,12 +28,6 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return View(wykladowca);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpGet]
         public IActionResult PlanZajec()
         {
@@ -59,6 +53,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public IActionResult Contact()
         {
+            ViewData["nadawca"] = $"{obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID")).Imie} {obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID")).Nazwisko}";
             return View();
         }
 

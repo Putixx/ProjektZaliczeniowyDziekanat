@@ -2,7 +2,8 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dane -Wirtualny Dziekant";
-    ViewData["ctrl"] = "Student"; 
+    ViewData["ctrl"] = "Student";
+    
 }
 
 
@@ -13,7 +14,7 @@
                 <img src="~/jpg/avatar.png" class="img-fluid">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
-                <h3 >Twoje Dane</h3>
+                <h3>Twoje Dane</h3>
                 <div class="row">
                     <div class="col-lg-6">
                         <table class="table">
@@ -63,6 +64,14 @@
                             <tr>
                                 <td><strong>Obywatelstwo:</strong></td>
                                 <td><span>@Model.Obywatelstwo</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zapłacona kwota:</strong></td>
+                                <td><span>@ViewData["platnosc"] zł</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data płatności:</strong></td>
+                                <td><span>@ViewData["dataPlatnosci"]</span></td>
                             </tr>
                         </table>
                     </div>

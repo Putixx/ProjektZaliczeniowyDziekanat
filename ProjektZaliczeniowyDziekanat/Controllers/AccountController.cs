@@ -15,6 +15,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
             this.obslugaAccount = obslugaAccount;
         }
 
+
         public IActionResult UserRole()
         {
             return View();

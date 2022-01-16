@@ -11,5 +11,6 @@ namespace ProjektZaliczeniowyDziekanat.Interfaces
         StudentDTO ZalogowanyStudentDTO(int? StudentID);
         IQueryable<Zajecia> SortujZajecia(string sortOrder, IQueryable<Zajecia> zajecia);
         IQueryable<Zajecia> SzukajFrazyWZajeciach(string searchString, IQueryable<Zajecia> zajecia);
+        Platnosc ZnajdzPlatnosc(int? id);
     }
 }

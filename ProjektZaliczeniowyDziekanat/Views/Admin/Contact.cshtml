@@ -1,7 +1,8 @@
 ﻿
 @{
-    ViewData["ctrl"] = "Wykladowca";
     ViewData["Title"] = "Kontakt - Wirtualny Dziekanat";
+    ViewData["ctrl"] = "Admin";
+    Layout = "AdminLayout";
 }
 
 <div style="height:140px;"></div>
@@ -12,7 +13,7 @@
     <form class="m-5" method="get" href="#">
         <div class="form-group w-50 mb-3">
             <label for="exampleFormControlInput1">Imię i nazwisko nadawcy</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" value="@ViewData["nadawca"]" readonly>
+            <input type="email" class="form-control" id="exampleFormControlInput1" value="Administrator" readonly>
         </div>
         <div class="form-group w-50 my-3">
             <label for="exampleFormControlSelect1">Wybierz odbiorcę</label>

@@ -34,18 +34,18 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         public IActionResult Dane()
         {           
             StudentDTO studentDTO = obslugaStudent.ZalogowanyStudentDTO(HttpContext.Session.GetInt32("studentID"));
-
+            ViewData["platnosc"] = obslugaStudent
+                .ZnajdzPlatnosc(HttpContext.Session.GetInt32("studentID"))
+                .Kwota;
+            ViewData["dataPlatnosci"] = obslugaStudent
+                .ZnajdzPlatnosc(HttpContext.Session.GetInt32("studentID"))
+                .DataPlatnosci.ToString("d");
             if (studentDTO == null)
                 return BadRequest();
             else
                 return View(studentDTO);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
         [HttpGet]
         public IActionResult PlanZajec(string sortOrder, string searchString)
@@ -68,9 +68,8 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public IActionResult Contact()
         {
+            ViewData["nadawca"] = $"{obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID")).Imie} {obslugaStudent.ZalogowanyStudent(HttpContext.Session.GetInt32("studentID")).Nazwisko}";
             return View();
         }
-
-
     }
 }

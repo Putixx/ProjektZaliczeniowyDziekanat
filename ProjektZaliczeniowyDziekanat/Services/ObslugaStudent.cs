@@ -75,5 +75,11 @@ namespace ProjektZaliczeniowyDziekanat.Services
 
             return zajecia;
         }
+
+        public Platnosc ZnajdzPlatnosc(int? id)
+        {
+            Platnosc platnosc = dziekanatDb.Platnosci.First(x => x.StudentID == id);
+            return platnosc;
+        }
     }
 }
