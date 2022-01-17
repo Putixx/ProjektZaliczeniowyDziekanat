@@ -37,21 +37,26 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         public async Task<IActionResult> Dane()
         {           
             StudentDTO studentDTO = await obslugaStudent.ZalogowanyStudentDTOAsync(HttpContext.Session.GetInt32("studentID"));
-            Platnosc platnosc = obslugaStudent.ZnajdzPlatnosc(HttpContext.Session.GetInt32("studentID"));
-            if (platnosc == null)
-            {
-                ViewData["platnosc"] = "NIE OPŁACONO";
-                ViewData["dataPlatnosci"] = "NIE OPŁACONO";
-            }
-            else
-            {
-                ViewData["platnosc"] = platnosc.Kwota;
-                ViewData["dataPlatnosci"] = platnosc.DataPlatnosci.ToString("d");
-            }
+
             if (studentDTO == null)
                 return BadRequest();
+
             else
+            {
+                Platnosc platnosc = obslugaStudent.ZnajdzPlatnosc(HttpContext.Session.GetInt32("studentID"));
+                if (platnosc == null)
+                {
+                    ViewData["platnosc"] = "NIE OPŁACONO";
+                    ViewData["dataPlatnosci"] = "NIE OPŁACONO";
+                }
+                else
+                {
+                    ViewData["platnosc"] = platnosc.Kwota;
+                    ViewData["dataPlatnosci"] = platnosc.DataPlatnosci.ToString("d");
+                }
+
                 return View(studentDTO);
+            }
         }
 
 
@@ -86,9 +91,15 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         public async Task<IActionResult> Oceny()
         {
             List<StudentOceny> oceny = await obslugaStudent.PobierzOcenyStudentaAsync(HttpContext.Session.GetInt32("studentID"));
-            oceny.ForEach(x => x.Zajecia = obslugaStudent.PobierzZajecia(x.ZajeciaID));
-            oceny.ForEach(x => x.Student = obslugaStudent.ZalogowanyStudent(x.StudentID));
-            return View(oceny);
+            if(oceny != null)
+            {
+                oceny.ForEach(x => x.Zajecia = obslugaStudent.PobierzZajecia(x.ZajeciaID));
+                oceny.ForEach(x => x.Student = obslugaStudent.ZalogowanyStudent(x.StudentID));
+
+                return View(oceny);
+            }
+
+            return Ok(new { komunikat = $"Student nie posiada żadnych ocen!" });
         }
     }
 }
