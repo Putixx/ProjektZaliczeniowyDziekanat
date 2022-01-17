@@ -5,6 +5,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 {
     public class WykladowcaLogowanie
     {
+
         [Key]
         public int WykladowcaLogowanieID { get; set; }
         [ForeignKey("Wykladowca")]
@@ -18,5 +19,15 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 
 
         public virtual Wykladowca Wykladowca { get; set; }
+
+
+        public WykladowcaLogowanie() { }
+
+        public WykladowcaLogowanie(int WykladowcaID, string Login, string Haslo)
+        {
+            this.WykladowcaID = WykladowcaID;
+            this.Login = Login;
+            this.Haslo = Haslo;
+        }
     }
 }

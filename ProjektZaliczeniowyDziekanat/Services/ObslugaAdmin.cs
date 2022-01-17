@@ -17,6 +17,27 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
+        bool SprawdzPESEL(string PESEL)
+        {
+            StudentDTO studentDTO = dziekanatDb.StudenciDTO.FirstOrDefault(x => x.PESEL == PESEL);
+            WykladowcaDTO wykladowcaDTO = dziekanatDb.WykladowcyDTO.FirstOrDefault(x => x.PESEL == PESEL);
+
+            if (studentDTO == null && wykladowcaDTO == null)
+                return false;
+
+            return true;
+        }
+
+        bool SprawdzIndeks(string NumerIndeksu)
+        {
+            StudentDTO studentDTO = dziekanatDb.StudenciDTO.FirstOrDefault(x => x.NumerIndeksu == NumerIndeksu);
+
+            if (studentDTO == null)
+                return false;
+
+            return true;
+        }
+
         public List<Zajecia> PobierzPlanZajec(string searchString)
         {
             IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec select z;
@@ -187,6 +208,18 @@ namespace ProjektZaliczeniowyDziekanat.Services
                     return true;
                 }
 
+                if (SprawdzPESEL(PESEL))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                if (SprawdzIndeks(NumerIndeksu))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
                 Student nowyStudent = new Student(NumerIndeksu, Imie, Nazwisko, GrupaNr);
 
                 dziekanatDb.Studenci.Add(nowyStudent);
@@ -267,7 +300,112 @@ namespace ProjektZaliczeniowyDziekanat.Services
                 return false;
             }
         }
-        //public bool DodajWykladowce(string GrupaNr, string NazwaPrzedmiotu, string TerminZajec, string WykladowcaID);
-        //public bool UsunWykladowce(string NazwaPrzedmiotu);
+        
+        public bool DodajWykladowceDoBazy(string Imie, string Nazwisko, string StopienNaukowy, string ProwadzonyPrzedmiot, string PESEL, string AdresZamieszkania, string MiejsceZamieszkania, string Narodowosc, string Obywatelstwo)
+        {
+            using var transaction = dziekanatDb.Database.BeginTransaction();
+
+            try
+            {
+                if (String.IsNullOrEmpty(Imie) || String.IsNullOrEmpty(Nazwisko) || String.IsNullOrEmpty(StopienNaukowy) || String.IsNullOrEmpty(ProwadzonyPrzedmiot) || String.IsNullOrEmpty(PESEL) || String.IsNullOrEmpty(AdresZamieszkania) || String.IsNullOrEmpty(MiejsceZamieszkania) || String.IsNullOrEmpty(Narodowosc) || String.IsNullOrEmpty(Obywatelstwo))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                if (PESEL.Length > 11)
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                if(SprawdzPESEL(PESEL))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                Wykladowca nowyWykladowca = new Wykladowca(Imie, Nazwisko, StopienNaukowy, ProwadzonyPrzedmiot);
+
+                dziekanatDb.Wykladowcy.Add(nowyWykladowca);
+                dziekanatDb.SaveChanges();
+
+                WykladowcaDTO nowyWykladowcaDTO = new WykladowcaDTO(Imie, Nazwisko, StopienNaukowy, ProwadzonyPrzedmiot, PESEL, AdresZamieszkania, MiejsceZamieszkania, Narodowosc, Obywatelstwo);
+
+                dziekanatDb.WykladowcyDTO.Add(nowyWykladowcaDTO);
+                dziekanatDb.SaveChanges();
+
+                WykladowcaDTO dodanyWykladowcaDTO = dziekanatDb.WykladowcyDTO.FirstOrDefault(x => x.PESEL == nowyWykladowcaDTO.PESEL);
+                string Login = dodanyWykladowcaDTO.Imie + dodanyWykladowcaDTO.Nazwisko;
+                string Haslo = dodanyWykladowcaDTO.PESEL;
+                WykladowcaLogowanie wykladowcaLogowanie = new WykladowcaLogowanie(dodanyWykladowcaDTO.WykladowcaID, Login, Haslo);
+
+                dziekanatDb.WykladowcyLogowanie.Add(wykladowcaLogowanie);
+                dziekanatDb.SaveChanges();
+
+                transaction.Commit();
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+
+                transaction.Rollback();
+
+                return false;
+            }
+        }
+
+        public bool UsunWykladowceZBazy(string WykladowcaID)
+        {
+            using var transaction = dziekanatDb.Database.BeginTransaction();
+
+            try
+            {
+                if (String.IsNullOrEmpty(WykladowcaID))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                int wykladowcaID;
+
+                if (!int.TryParse(WykladowcaID, out wykladowcaID))
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                WykladowcaDTO wykladowcaDTO = dziekanatDb.WykladowcyDTO.FirstOrDefault(x => x.WykladowcaID == wykladowcaID);
+
+                if (wykladowcaDTO == null)
+                {
+                    transaction.Rollback();
+                    return true;
+                }
+
+                Wykladowca wykladowca = dziekanatDb.Wykladowcy.FirstOrDefault(x => x.WykladowcaID == wykladowcaDTO.WykladowcaID);
+                WykladowcaLogowanie wykladowcaLogowanie = dziekanatDb.WykladowcyLogowanie.FirstOrDefault(x => x.WykladowcaID == wykladowca.WykladowcaID);
+
+                dziekanatDb.WykladowcyLogowanie.Remove(wykladowcaLogowanie);
+                dziekanatDb.WykladowcyDTO.Remove(wykladowcaDTO);
+                dziekanatDb.Wykladowcy.Remove(wykladowca);
+                dziekanatDb.SaveChanges();
+
+                transaction.Commit();
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+
+                transaction.Rollback();
+
+                return false;
+            }
+
+        }
     }
 }

@@ -113,6 +113,30 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return BadRequest();
         }
 
+        [HttpPost]
+        [Route("DodajWykladowce")]
+        public IActionResult DodajWykladowce(string Imie, string Nazwisko, string StopienNaukowy, string ProwadzonyPrzedmiot, string PESEL, string AdresZamieszkania, string MiejsceZamieszkania, string Narodowosc, string Obywatelstwo)
+        {
+            if (obslugaAdmin.DodajWykladowceDoBazy(Imie, Nazwisko, StopienNaukowy, ProwadzonyPrzedmiot, PESEL, AdresZamieszkania, MiejsceZamieszkania, Narodowosc, Obywatelstwo))
+                return BadRequest(new { komunikat = $"Należy poprawnie podać wszystkie dane!" });
+
+            //return Ok(new { komunikat = $"Dodano studenta: {Imie} {Nazwisko} do bazy" });
+
+            return RedirectToAction("Wykladowcy", "Admin");
+        }
+
+        [HttpGet]
+        [Route("UsunWykladowce/{WykladowcaID}")]
+        public IActionResult UsunWykladowce(string WykladowcaID)
+        {
+            if (obslugaAdmin.UsunWykladowceZBazy(WykladowcaID))
+                return BadRequest(new { komunikat = $"W bazie nie ma takiego wykładowcy!" });
+
+            //return Ok(new { komunikat = $"Usunięto wykładowce o ID: {WykladowcaID} z bazy" });
+
+            return RedirectToAction("Wykladowcy", "Admin");
+        }
+
         [HttpGet]
         public IActionResult Contact()
         {

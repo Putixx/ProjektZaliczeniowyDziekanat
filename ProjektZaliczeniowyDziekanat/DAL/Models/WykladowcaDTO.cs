@@ -5,6 +5,7 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 {
     public class WykladowcaDTO
     {
+
         [Key]
         public int WykladowcaID { get; set; }
         public string Imie { get; set; }
@@ -20,5 +21,21 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 
 
         public virtual Przedmiot Przedmiot { get; set; }
+
+
+        public WykladowcaDTO() { }
+
+        public WykladowcaDTO(string Imie, string Nazwisko, string StopienNaukowy, string ProwadzonyPrzedmiot, string PESEL, string AdresZamieszkania, string MiejsceZamieszkania, string Narodowosc, string Obywatelstwo)
+        {
+            this.Imie = Imie;
+            this.Nazwisko = Nazwisko;
+            this.StopienNaukowy = StopienNaukowy;
+            this.ProwadzonyPrzedmiot = ProwadzonyPrzedmiot;
+            this.PESEL = PESEL;
+            this.AdresZamieszkania = AdresZamieszkania;
+            this.MiejsceZamieszkania = MiejsceZamieszkania;
+            this.Narodowosc = Narodowosc;
+            this.Obywatelstwo = Obywatelstwo;
+        }
     }
 }
