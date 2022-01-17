@@ -1,12 +1,13 @@
 ﻿using ProjektZaliczeniowyDziekanat.DAL.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProjektZaliczeniowyDziekanat.Interfaces
 {
     public interface IObslugaWykladowca
     {
-        List<Zajecia> WyswietlZajecia(Wykladowca ZalWykladowca);
-        Wykladowca ZalogowanyWykladowca(int? WykladowcaID);
-        WykladowcaDTO ZalogowanyWykladowcaDTO(int? WykladowcaID);
+        Task<List<Zajecia>> WyswietlZajecia(Wykladowca ZalWykladowca);
+        Task<Wykladowca> ZalogowanyWykladowca(int? WykladowcaID);
+        Task<WykladowcaDTO> ZalogowanyWykladowcaDTO(int? WykladowcaID);
     }
 }

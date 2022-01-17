@@ -4,6 +4,7 @@ using System.Diagnostics;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
@@ -18,9 +19,9 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
 
         [HttpGet]
         [Route("Wykladowca/Home")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            Wykladowca wykladowca = obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            Wykladowca wykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (wykladowca == null)
                 return BadRequest();
@@ -29,20 +30,20 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         }
 
         [HttpGet]
-        public IActionResult PlanZajec()
+        public async Task<IActionResult> PlanZajec()
         {
-            Wykladowca ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            Wykladowca ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (ZalWykladowca == null)
                 return BadRequest();
             else
-                return View(obslugaWykladowca.WyswietlZajecia(ZalWykladowca));
+                return View(await obslugaWykladowca.WyswietlZajecia(ZalWykladowca));
         }
 
         [HttpGet]
-        public IActionResult Dane()
+        public async Task<IActionResult> Dane()
         {
-            WykladowcaDTO ZalWykladowca = obslugaWykladowca.ZalogowanyWykladowcaDTO(HttpContext.Session.GetInt32("wykladowcaID"));
+            WykladowcaDTO ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowcaDTO(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (ZalWykladowca == null)
                 return BadRequest();
@@ -51,9 +52,10 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         }
 
         [HttpGet]
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
-            ViewData["nadawca"] = $"{obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID")).Imie} {obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID")).Nazwisko}";
+            var wykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            ViewData["nadawca"] = $"{wykladowca.Imie} {wykladowca.Nazwisko}";
             return View();
         }
 

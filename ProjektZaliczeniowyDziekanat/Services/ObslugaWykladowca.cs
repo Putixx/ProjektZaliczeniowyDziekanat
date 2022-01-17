@@ -3,6 +3,7 @@ using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjektZaliczeniowyDziekanat.Services
 {
@@ -15,29 +16,29 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
-        public List<Zajecia> WyswietlZajecia(Wykladowca ZalWykladowca)
+        public async Task<List<Zajecia>> WyswietlZajecia(Wykladowca ZalWykladowca)
         {
-            IQueryable<Zajecia> zajecia = from z in dziekanatDb.PlanZajec where z.WykladowcaID == ZalWykladowca.WykladowcaID  orderby z.TerminZajec select z;
+            IQueryable<Zajecia> zajecia = await Task.Run(() => from z in dziekanatDb.PlanZajec where z.WykladowcaID == ZalWykladowca.WykladowcaID  orderby z.TerminZajec select z);
 
             return zajecia.ToList();
         }
         
-        public Wykladowca ZalogowanyWykladowca(int? WykladowcaID)
+        public async Task<Wykladowca> ZalogowanyWykladowca(int? WykladowcaID)
         {
             if (WykladowcaID != null)
             {
-                Wykladowca wykladowca = dziekanatDb.Wykladowcy.First(x => x.WykladowcaID == WykladowcaID);
+                Wykladowca wykladowca = await Task.Run(() => dziekanatDb.Wykladowcy.First(x => x.WykladowcaID == WykladowcaID));
                 return wykladowca;
             }
             else
                 return null;
         }
 
-        public WykladowcaDTO ZalogowanyWykladowcaDTO(int? WykladowcaID)
+        public async Task<WykladowcaDTO> ZalogowanyWykladowcaDTO(int? WykladowcaID)
         {
             if (WykladowcaID != null)
             {
-                WykladowcaDTO wykladowcaDTO = dziekanatDb.WykladowcyDTO.First(x => x.WykladowcaID == WykladowcaID);
+                WykladowcaDTO wykladowcaDTO = await Task.Run(() => dziekanatDb.WykladowcyDTO.First(x => x.WykladowcaID == WykladowcaID));
                 return wykladowcaDTO;
             }
             else
