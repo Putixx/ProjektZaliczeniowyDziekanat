@@ -19,7 +19,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [Route("Wykladowca/Home")]
         public async Task<IActionResult> Index()
         {
-            Wykladowca wykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            Wykladowca wykladowca = await obslugaWykladowca.ZalogowanyWykladowcaAsync(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (wykladowca == null)
                 return BadRequest();
@@ -30,18 +30,18 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public async Task<IActionResult> PlanZajec()
         {
-            Wykladowca ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            Wykladowca ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowcaAsync(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (ZalWykladowca == null)
                 return BadRequest();
             else
-                return View(await obslugaWykladowca.WyswietlZajecia(ZalWykladowca));
+                return View(await obslugaWykladowca.WyswietlZajeciaAsync(ZalWykladowca));
         }
 
         [HttpGet]
         public async Task<IActionResult> Dane()
         {
-            WykladowcaDTO ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowcaDTO(HttpContext.Session.GetInt32("wykladowcaID"));
+            WykladowcaDTO ZalWykladowca = await obslugaWykladowca.ZalogowanyWykladowcaDTOAsync(HttpContext.Session.GetInt32("wykladowcaID"));
 
             if (ZalWykladowca == null)
                 return BadRequest();
@@ -52,7 +52,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public async Task<IActionResult> Contact()
         {
-            var wykladowca = await obslugaWykladowca.ZalogowanyWykladowca(HttpContext.Session.GetInt32("wykladowcaID"));
+            var wykladowca = await obslugaWykladowca.ZalogowanyWykladowcaAsync(HttpContext.Session.GetInt32("wykladowcaID"));
             ViewData["nadawca"] = $"{wykladowca.Imie} {wykladowca.Nazwisko}";
             return View();
         }

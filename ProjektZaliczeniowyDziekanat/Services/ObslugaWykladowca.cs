@@ -16,14 +16,14 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
-        public async Task<List<Zajecia>> WyswietlZajecia(Wykladowca ZalWykladowca)
+        public async Task<List<Zajecia>> WyswietlZajeciaAsync(Wykladowca ZalWykladowca)
         {
             IQueryable<Zajecia> zajecia = await Task.Run(() => from z in dziekanatDb.PlanZajec where z.WykladowcaID == ZalWykladowca.WykladowcaID  orderby z.TerminZajec select z);
 
             return zajecia.ToList();
         }
         
-        public async Task<Wykladowca> ZalogowanyWykladowca(int? WykladowcaID)
+        public async Task<Wykladowca> ZalogowanyWykladowcaAsync(int? WykladowcaID)
         {
             if (WykladowcaID != null)
             {
@@ -34,7 +34,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
                 return null;
         }
 
-        public async Task<WykladowcaDTO> ZalogowanyWykladowcaDTO(int? WykladowcaID)
+        public async Task<WykladowcaDTO> ZalogowanyWykladowcaDTOAsync(int? WykladowcaID)
         {
             if (WykladowcaID != null)
             {

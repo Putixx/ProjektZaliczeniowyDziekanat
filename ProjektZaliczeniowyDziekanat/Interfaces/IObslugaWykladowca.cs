@@ -6,8 +6,8 @@ namespace ProjektZaliczeniowyDziekanat.Interfaces
 {
     public interface IObslugaWykladowca
     {
-        Task<List<Zajecia>> WyswietlZajecia(Wykladowca ZalWykladowca);
-        Task<Wykladowca> ZalogowanyWykladowca(int? WykladowcaID);
-        Task<WykladowcaDTO> ZalogowanyWykladowcaDTO(int? WykladowcaID);
+        Task<List<Zajecia>> WyswietlZajeciaAsync(Wykladowca ZalWykladowca);
+        Task<Wykladowca> ZalogowanyWykladowcaAsync(int? WykladowcaID);
+        Task<WykladowcaDTO> ZalogowanyWykladowcaDTOAsync(int? WykladowcaID);
     }
 }
