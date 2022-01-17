@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjektZaliczeniowyDziekanat.Models;
-using System.Diagnostics;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
 using Microsoft.AspNetCore.Http;

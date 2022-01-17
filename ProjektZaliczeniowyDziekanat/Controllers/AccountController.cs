@@ -2,7 +2,6 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using ProjektZaliczeniowyDziekanat.Interfaces;
-using System.Diagnostics;
 
 namespace ProjektZaliczeniowyDziekanat.Controllers
 {
@@ -48,7 +47,6 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 {
                     HttpContext.Session.SetInt32("wykladowcaID", obslugaAccount.PobierzZalogowanegoWykladowce(Login, Haslo).WykladowcaID);
                     ViewData["BadLogin"] = "";
-                    ViewData["ctrl"] = "Wykladowca";
                     return RedirectToAction("Index", "Wykladowca");
                 }
                 else
@@ -71,7 +69,6 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 {
                     HttpContext.Session.SetInt32("studentID", obslugaAccount.PobierzZalogowanegoStudenta(Login, Haslo).StudentID);
                     ViewData["BadLogin"] = "";
-                    ViewData["ctrl"] = "Student";
                     return RedirectToAction("Index", "Student");
                 }
                 else
@@ -94,7 +91,6 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 {
                     HttpContext.Session.SetInt32("adminID", 1);
                     ViewData["BadLogin"] = "";
-                    ViewData["ctrl"] = "Admin";
                     return RedirectToAction("Index", "Admin");
                 }
                 else

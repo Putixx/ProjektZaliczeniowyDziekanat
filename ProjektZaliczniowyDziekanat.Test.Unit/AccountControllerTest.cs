@@ -3,11 +3,6 @@ using Moq;
 using ProjektZaliczeniowyDziekanat.Controllers;
 using ProjektZaliczeniowyDziekanat.DAL.Models;
 using ProjektZaliczeniowyDziekanat.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ProjektZaliczniowyDziekanat.Test.Unit
