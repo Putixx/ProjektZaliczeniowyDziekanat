@@ -80,7 +80,11 @@ namespace ProjektZaliczeniowyDziekanat.Services
         public Platnosc ZnajdzPlatnosc(int? id)
         {
             Platnosc platnosc = dziekanatDb.Platnosci.First(x => x.StudentID == id);
-            return platnosc;
+
+            if (platnosc == null)
+                return null;
+            else
+                return platnosc;
         }
 
         public async Task<List<StudentOceny>> PobierzOcenyStudentaAsync(int? id)
