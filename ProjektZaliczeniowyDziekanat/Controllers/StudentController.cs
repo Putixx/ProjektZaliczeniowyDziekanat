@@ -90,8 +90,8 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
         [HttpGet]
         public async Task<IActionResult> Oceny()
         {
-            List<StudentOceny> oceny = await obslugaStudent.PobierzOcenyStudentaAsync(HttpContext.Session.GetInt32("studentID"));
-            if(oceny != null)
+            List<StudentOceny> oceny = await obslugaStudent.PobierzOcenyStudentaAsync(HttpContext.Session.GetInt32("studentID")); 
+            if(oceny.Any())
             {
                 oceny.ForEach(x => x.Zajecia = obslugaStudent.PobierzZajecia(x.ZajeciaID));
                 oceny.ForEach(x => x.Student = obslugaStudent.ZalogowanyStudent(x.StudentID));
@@ -99,7 +99,7 @@ namespace ProjektZaliczeniowyDziekanat.Controllers
                 return View(oceny);
             }
 
-            return Ok(new { komunikat = $"Student nie posiada żadnych ocen!" });
+            return View(oceny);
         }
     }
 }
