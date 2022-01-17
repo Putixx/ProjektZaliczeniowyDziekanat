@@ -17,31 +17,31 @@ namespace ProjektZaliczeniowyDziekanat.Services
             this.dziekanatDb = dziekanatDb;
         }
 
-        public async Task<List<Zajecia>> WyswietlZajecia(Student ZalStudent, string sortOrder, string searchString)
+        public async Task<List<Zajecia>> WyswietlZajeciaAsync(Student ZalStudent, string sortOrder, string searchString)
         {
             IQueryable<Zajecia> zajecia = await Task.Run(() => from z in dziekanatDb.PlanZajec where z.GrupaNr == ZalStudent.GrupaNr orderby z.TerminZajec select z);
 
             if (sortOrder == "date_desc" || sortOrder == "name_desc")
-                zajecia = await SortujZajecia(sortOrder, zajecia);
+                zajecia = await SortujZajeciaAsync(sortOrder, zajecia);
 
             if (!String.IsNullOrEmpty(searchString))
-                zajecia = await SzukajFrazyWZajeciach(searchString, zajecia);
+                zajecia = await SzukajFrazyWZajeciachAsync(searchString, zajecia);
 
             return zajecia.ToList();
         }
         
-        public async Task<Student> ZalogowanyStudent(int? StudentID)
+        public Student ZalogowanyStudent(int? StudentID)
         {
             if (StudentID != null)
             {
-                Student student = await Task.Run(() => dziekanatDb.Studenci.First(x => x.StudentID == StudentID));
+                Student student = dziekanatDb.Studenci.First(x => x.StudentID == StudentID);
                 return student;
             }
             else
                 return null;
         }
 
-        public async Task<StudentDTO> ZalogowanyStudentDTO(int? StudentID)
+        public async Task<StudentDTO> ZalogowanyStudentDTOAsync(int? StudentID)
         {
             if (StudentID != null)
             {
@@ -52,7 +52,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
                 return null;
         }
 
-        public async Task<IQueryable<Zajecia>> SortujZajecia(string sortOrder, IQueryable<Zajecia> zajecia)
+        public async Task<IQueryable<Zajecia>> SortujZajeciaAsync(string sortOrder, IQueryable<Zajecia> zajecia)
         {
             switch (sortOrder)
             {
@@ -69,7 +69,7 @@ namespace ProjektZaliczeniowyDziekanat.Services
             return zajecia;
         }
 
-        public async Task<IQueryable<Zajecia>> SzukajFrazyWZajeciach(string searchString, IQueryable<Zajecia> zajecia)
+        public async Task<IQueryable<Zajecia>> SzukajFrazyWZajeciachAsync(string searchString, IQueryable<Zajecia> zajecia)
         {
             if (!String.IsNullOrEmpty(searchString))
                 zajecia = await Task.Run(() => zajecia.Where(z => z.NazwaPrzedmiotu.Contains(searchString)));
@@ -77,10 +77,22 @@ namespace ProjektZaliczeniowyDziekanat.Services
             return zajecia;
         }
 
-        public async Task<Platnosc> ZnajdzPlatnosc(int? id)
+        public Platnosc ZnajdzPlatnosc(int? id)
         {
-            Platnosc platnosc = await Task.Run(() => dziekanatDb.Platnosci.First(x => x.StudentID == id));
+            Platnosc platnosc = dziekanatDb.Platnosci.First(x => x.StudentID == id);
             return platnosc;
+        }
+
+        public async Task<List<StudentOceny>> PobierzOcenyStudentaAsync(int? id)
+        {
+            List<StudentOceny> oceny = await Task.Run(() => dziekanatDb.StudenciOceny.Where(x => x.StudentID == id).ToList());
+            return oceny;
+        }
+
+        public Zajecia PobierzZajecia(int idZajec)
+        {
+            Zajecia zajecia = dziekanatDb.PlanZajec.First(x => x.ZajeciaID == idZajec);
+            return zajecia;
         }
     }
 }
