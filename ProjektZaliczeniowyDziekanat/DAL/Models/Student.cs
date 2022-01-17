@@ -15,5 +15,15 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 
 
         public virtual Grupa Grupa { get; set; }
+
+        public Student() { }
+
+        public Student(string NumerIndeksu, string Imie, string Nazwisko, string GrupaNr)
+        {
+            this.NumerIndeksu = NumerIndeksu;
+            this.Imie = Imie;
+            this.Nazwisko = Nazwisko;
+            this.GrupaNr = GrupaNr;
+        }
     }
 }

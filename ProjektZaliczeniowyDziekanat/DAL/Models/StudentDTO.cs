@@ -24,5 +24,22 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 
 
         public virtual Grupa Grupa { get; set; }
+
+        public StudentDTO() { }
+
+        public StudentDTO(string NumerIndeksu, string Imie, string Nazwisko, DateTime DataUrodzenia, string MiejsceUrodzenia, string AdresZamieszkania, string MiejsceZamieszkania, string Narodowosc, string Obywatelstwo, string PESEL, string GrupaNr)
+        {
+            this.NumerIndeksu = NumerIndeksu;
+            this.Imie = Imie;
+            this.Nazwisko = Nazwisko;
+            this.DataUrodzenia = DataUrodzenia;
+            this.MiejsceUrodzenia = MiejsceUrodzenia;
+            this.AdresZamieszkania = AdresZamieszkania;
+            this.MiejsceZamieszkania = MiejsceZamieszkania;
+            this.Narodowosc = Narodowosc;
+            this.Obywatelstwo = Obywatelstwo;
+            this.PESEL = PESEL;
+            this.GrupaNr = GrupaNr;
+        }
     }
 }

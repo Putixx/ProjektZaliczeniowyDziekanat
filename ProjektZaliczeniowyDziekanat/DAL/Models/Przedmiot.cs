@@ -8,5 +8,12 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string NazwaPrzedmiotu { get; set; }
+
+        public Przedmiot() { }
+
+        public Przedmiot(string NazwaPrzedmiotu)
+        {
+            this.NazwaPrzedmiotu = NazwaPrzedmiotu;
+        }
     }
 }

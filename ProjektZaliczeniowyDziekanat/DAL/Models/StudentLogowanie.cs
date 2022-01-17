@@ -19,5 +19,14 @@ namespace ProjektZaliczeniowyDziekanat.DAL.Models
 
 
         public virtual Student Student { get; set; }
+
+        public StudentLogowanie() { }
+
+        public StudentLogowanie(int StudentID, string Login, string Haslo)
+        {
+            this.StudentID = StudentID;
+            this.Login = Login;
+            this.Haslo = Haslo;
+        }
     }
 }
